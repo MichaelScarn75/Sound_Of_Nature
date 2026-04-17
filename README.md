@@ -63,16 +63,14 @@ If the game receives an update, check this repository or the latest release page
 
 List Of Sounds
 ---------------
-Terminal
-System menu
-Map
-Enter facility 
-Facility scanning 
-Facility use terminal 
-Enter private room 
-Open map 
-Focusing on icons in map 
-Zooming in in map 
-Zooming out in map 
-
-
+Terminal<br />
+System menu<br />
+Map<br />
+Enter facility<br />
+Facility scanning<br />
+Facility use terminal<br />
+Enter private room<br />
+Open map<br />
+Focusing on icons in map<br />
+Zooming in in map<br />
+Zooming out in map<br />
