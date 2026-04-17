@@ -85,8 +85,17 @@ vehicle boost sound - bike<br />
 
 
 
-
 Tiny Notes
 ---------------
 560195744u bike boost sound
 1129849155u	sound of tires moving on the ground
+1459707057u getting off bike sound
+2927771336u bike retracts after getting off sound
+1926977457u getting on bike sound
+1502884739u getting on bike (law and order ding ding) sound
+2281185168u armor activated on bike mount 1 sound
+1409497247u armor activated on bike mount 2 sound
+4094584434u armor activated on bike mount 3 sound
+1520456362u armor activated on bike mount 4 sound
+591947656u armor deactivated on bike unmount 1 sound
+1494342936u armor deactivated on bike unmount 2 sound
