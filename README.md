@@ -88,14 +88,6 @@ skeleton boost sound<br />
 
 
 
-
-
-
-
-
-
-
-
 Tiny Note
 ---------------
 *Any value not found in this tiny note from k_blocked_event_ids[] object means it is not documented :(
