@@ -51,3 +51,28 @@ If the game receives an update, check this repository or the latest release page
 ## Future Plans
 
 - optional hiding of Dollman-only subtitles without affecting other subtitle lines
+
+
+
+
+
+
+
+
+
+
+List Of Sounds
+---------------
+Terminal
+System menu
+Map
+Enter facility 
+Facility scanning 
+Facility use terminal 
+Enter private room 
+Open map 
+Focusing on icons in map 
+Zooming in in map 
+Zooming out in map 
+
+
