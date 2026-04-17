@@ -158,18 +158,10 @@ enum {
 };
 
 /*
- * These IDs are the currently confirmed Dollman Wwise voice events.
+ * These IDs are the currently confirmed Wwise voice events.
  * They are blocked directly without any heuristic windows or runtime learning.
  */
 static const AkUniqueID k_blocked_event_ids[] = {
-    2995625663u, /* equip */
-    2820786646u, /* throw */
-    2978848044u, /* throw / return */
-    1966841225u, /* older random chatter candidate */
-    302733266u,  /* task-failure line */
-    2417186760u, /* near-fall chatter candidate: rejected after runtime trace */
-    448888368u,   /* near-fall chatter candidate: tail-window single-shot external source */
-
 3284068560u,
 2798630017u,
 1733184735u,
@@ -633,29 +625,24 @@ static const AkUniqueID k_blocked_event_ids[] = {
 1731316122u,
 2260357319u,
 4208302398u,
-1808469513u,
-4251155871u,
 2483290443u,
 1268992403u,
 263052418u,
+1808469513u,
+4251155871u,
+4223857948u
 };
 
 /*
- * These hashes are the currently confirmed Dollman PlayerVoice entries.
+ * These hashes are the currently confirmed PlayerVoice entries.
  * Blocking here catches random chatter before it reaches the Wwise layer.
  */
 static const uint32_t k_blocked_voice_hashes[] = {
-    0x2cf2ead9u, /* load-save library prompt */
-    0x3f8a5e65u, /* throw / return */
-    0x6fdbf8b5u, /* pre-whoosh chatter */
-    0x7bd37461u, /* return sequence */
-    0x6023776du, /* second whoosh sequence */
-    0x50b55cfau /* random chatter */
 };
 
 static const char *k_default_ini =
-    "; DollmanMute public release config\n"
-    "; Enabled=1 keeps Dollman voice muted.\n"
+    "; SoundOfNature public release config\n"
+    "; Enabled=1 to enable sound of nature mod.\n"
     "; Set VerboseLog=1 only when gathering debugging info.\n"
     "; PlayerVoice hooks are disabled by default on updated game builds\n"
     "; because those internal offsets may change and cause crashes.\n"
@@ -712,8 +699,8 @@ static void init_paths(void)
         *last_slash = '\0';
     }
 
-    join_path(g_ini_path, sizeof(g_ini_path), module_path, "DollmanMute.ini");
-    join_path(g_log_path, sizeof(g_log_path), module_path, "DollmanMute.log");
+    join_path(g_ini_path, sizeof(g_ini_path), module_path, "SoundOfNature.ini");
+    join_path(g_log_path, sizeof(g_log_path), module_path, "SoundOfNature.log");
 }
 
 static void ensure_default_ini(void)
@@ -1620,9 +1607,9 @@ static DWORD WINAPI initialize_thread_proc(LPVOID parameter)
     init_paths();
     load_config();
 
-    log_line("DollmanMute build: %s", k_build_tag);
+    log_line("SoundOfNature build: %s", k_build_tag);
     log_line(
-        "DollmanMute init start: enabled=%d verbose=%d playerVoiceHooks=%d markHotkey=%d vk=%u scannerMode=%u",
+        "SoundOfNature init start: enabled=%d verbose=%d playerVoiceHooks=%d markHotkey=%d vk=%u scannerMode=%u",
         g_cfg.enabled,
         g_cfg.verbose_log,
         g_cfg.enable_player_voice_hooks,
@@ -1706,7 +1693,7 @@ static DWORD WINAPI initialize_thread_proc(LPVOID parameter)
     }
 
     g_hooks_installed = hook_count != 0;
-    log_line("DollmanMute init complete: hooks=%u", hook_count);
+    log_line("SoundOfNature init complete: hooks=%u", hook_count);
 
     if (g_cfg.enable_mark_hotkey && g_cfg.mark_hotkey_virtual_key != 0 && !g_mark_hotkey_thread_running) {
         HANDLE mark_thread = CreateThread(

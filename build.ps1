@@ -8,9 +8,9 @@ $root = Split-Path -Parent $MyInvocation.MyCommand.Path
 $modsDir = Split-Path -Parent $root
 $gameRoot = Split-Path -Parent $modsDir
 $outDir = Join-Path $root 'build'
-$destAsi = Join-Path $gameRoot 'DollmanMute.asi'
-$destIni = Join-Path $gameRoot 'DollmanMute.ini'
-$srcIni = Join-Path $root 'DollmanMute.ini'
+$destAsi = Join-Path $gameRoot 'SoundOfNature.asi'
+$destIni = Join-Path $gameRoot 'SoundOfNature.ini'
+$srcIni = Join-Path $root 'SoundOfNature.ini'
 
 $zigCandidates = @()
 if ($Zig) { $zigCandidates += $Zig }
@@ -26,7 +26,7 @@ if (-not $zigExe) {
 
 New-Item -ItemType Directory -Force -Path $outDir | Out-Null
 
-$target = Join-Path $outDir 'DollmanMute.asi'
+$target = Join-Path $outDir 'SoundOfNature.asi'
 $args = @(
     'cc'
     '-std=c17'
@@ -52,7 +52,7 @@ if ($LASTEXITCODE -ne 0) {
 }
 
 $extraArtifacts = @(
-    (Join-Path $outDir 'DollmanMute.pdb'),
+    (Join-Path $outDir 'SoundOfNature.pdb'),
     (Join-Path $outDir 'dllmain.lib')
 )
 foreach ($artifact in $extraArtifacts) {

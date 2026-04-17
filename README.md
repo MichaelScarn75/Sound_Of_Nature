@@ -1,33 +1,43 @@
-# DollmanMute
+## !!! Attention !!!
+100% of the Credit goes to chloeyayo for their amazing Dollman Mute mod!
+Check it out below ↓ ↓ ↓
+👉https://www.nexusmods.com/deathstranding2onthebeach/mods/33
 
-`DollmanMute` is an ASI mod for `DEATH STRANDING 2 - ON THE BEACH` that mutes Dollman voice lines.
+## Description
+This mod removes some annoying sounds related to terminal, vehicles, map, facilities and some other general sounds.
 
-It does not replace game archives or modify packaged assets.
+## Installation instructions
+1. Copy `SoundOfNature.asi` to the game root folder
+2. Copy `SoundOfNature.ini` to the game root folder
+3. Copy `version.dll` to the game root folder (skip this if you already have the Dollman mute mod installed!)
 
-## What It Does
+## Main features
+This mod is 100% based on chloeyayo 's mod, I only added the sounds to the blocking list!
 
-- mutes Dollman voice lines
-- keeps ambient/world audio intact
-- works as a lightweight native ASI mod
+I love to crank up the volume to max and enjoy the dirt and rocks beneath my feet,
+
+but the game gives me jump scares with various loud machine noises such as getting on and off a vehicle,
+the terrifying HEADOUT bang after accepting an order, 
+entering and exiting a facility sound like a bomb going off,
+and more.......
+
+There are a lot more that I didn't add such as 
+flying on a zipline, 
+BT detected in a region,
+and human/ghost mech detection.
+
+## Source Code
+https://github.com/MichaelScarn75/Sound_Of_Nature
 
 ## Requirements
+No additional mod required.
 
-- `DEATH STRANDING 2 - ON THE BEACH`
-- no additional tools required for the packaged release
-
-## Installation
-
-1. Copy `DollmanMute.asi` to the game root folder
-2. Copy `DollmanMute.ini` to the game root folder
-3. Copy `version.dll` to the game root folder
-
-Game root example:
-
-`...\Steam\steamapps\common\DEATH STRANDING 2 - ON THE BEACH\`
+## Shout outs
+Thanks to chloeyayo for their source code!🔥👍
 
 ## Configuration
 
-`DollmanMute.ini`
+`SoundOfNature.ini`
 
 - `Enabled=1` enables the mod
 - `VerboseLog=0` is recommended for normal use
@@ -40,21 +50,9 @@ If the mod does not seem to load:
 
 1. Make sure the files are in the game root, not inside a subfolder
 2. Make sure `version.dll` is present in the game root
-3. Launch the game and check whether `DollmanMute.log` appears in the game root
+3. Launch the game and check whether `SoundOfNature.log` appears in the game root
 
 If another mod already installed a working `version.dll`, you usually do not need to replace it.
-
-## After Game Updates
-
-If the game receives an update, check this repository or the latest release page for the newest compatible version of the mod.
-
-## Future Plans
-
-- optional hiding of Dollman-only subtitles without affecting other subtitle lines
-
-
-
-
 
 
 
@@ -63,10 +61,12 @@ If the game receives an update, check this repository or the latest release page
 
 List Of Sounds
 ---------------
-Terminal<br />
-System menu<br />
-Map<br />
-Enter facility<br />
+Terminal related<br />
+Command prompt<br />
+System menu related<br />
+Map related<br />
+Entering a facility<br />
+Exit a facility<br />
 Facility scanning<br />
 Facility use terminal<br />
 Enter private room<br />
@@ -78,6 +78,10 @@ getting on a vehicle - bike<br />
 getting off a vehicle - bike<br />
 normal vehicle speed sound - bike<br />
 vehicle boost sound - bike<br />
+getting on a vehicle - car<br />
+getting off a vehicle - car<br />
+skeleton normal walking sound<br />
+skeleton boost sound<br />
 
 
 
@@ -85,8 +89,17 @@ vehicle boost sound - bike<br />
 
 
 
-Tiny Notes
+
+
+
+
+
+
+
+Tiny Note
 ---------------
+*Any value not found in this tiny note from k_blocked_event_ids[] object means it is not documented :(
+
 560195744u vehicle boost sound<br />
 1129849155u	sound of tires moving on the ground (for documentation only not muted)<br />
 1459707057u getting off bike sound<br />
@@ -138,6 +151,7 @@ Tiny Notes
 4208302398u bokka skeleton sound 2<br />
 1808469513u battle skeleton sound 1<br />
 4251155871u battle skeleton sound 2<br />
+4223857948u battle skeleton sound 3<br />
 2483290443u loud HEADOUT sound 1<br />
 1268992403u loud HEADOUT sound 2<br />
 263052418u loud HEADOUT sound 3<br />
