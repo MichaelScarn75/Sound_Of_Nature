@@ -74,3 +74,19 @@ Open map<br />
 Focusing on icons in map<br />
 Zooming in in map<br />
 Zooming out in map<br />
+getting on a vehicle - bike<br />
+getting off a vehicle - bike<br />
+normal vehicle speed sound - bike<br />
+vehicle boost sound - bike<br />
+
+
+
+
+
+
+
+
+Tiny Notes
+---------------
+560195744u bike boost sound
+1129849155u	sound of tires moving on the ground
