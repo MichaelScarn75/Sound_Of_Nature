@@ -127,3 +127,18 @@ Tiny Notes
 2039319535u suspension noise while driving car sound 18<br />
 1113767062u suspension noise while driving car sound 19<br />
 4154749010u command prompt appears sound<br />
+334832419u boost skeleton sound 1<br />
+77658627u boost skeleton sound 2<br />
+860197806u boost skeleton sound 3<br />
+2599990357u boost skeleton sound 4<br />
+2115478403u boost skeleton sound 5<br />
+777940461u boost skeleton sound 6<br />
+1731316122u boost skeleton sound 7<br />
+2260357319u bokka skeleton sound 1<br />
+4208302398u bokka skeleton sound 2<br />
+1808469513u battle skeleton sound 1<br />
+4251155871u battle skeleton sound 2<br />
+2483290443u loud HEADOUT sound 1<br />
+1268992403u loud HEADOUT sound 2<br />
+263052418u loud HEADOUT sound 3<br />
+
