@@ -74,14 +74,13 @@ Open map<br />
 Focusing on icons in map<br />
 Zooming in in map<br />
 Zooming out in map<br />
-getting on a vehicle - bike<br />
-getting off a vehicle - bike<br />
+get on a vehicle - bike<br />
+get off a vehicle - bike<br />
 normal vehicle speed sound - bike<br />
 vehicle boost sound - bike<br />
-getting on a vehicle - car<br />
-getting off a vehicle - car<br />
-skeleton normal walking sound<br />
-skeleton boost sound<br />
+get on a vehicle - car<br />
+get off a vehicle - car<br />
+skeleton sound<br />
 
 
 
@@ -93,24 +92,24 @@ Tiny Note
 *Any value not found in this tiny note from k_blocked_event_ids[] object means it is not documented :(
 
 560195744u vehicle boost sound<br />
-1129849155u	sound of tires moving on the ground (for documentation only not muted)<br />
-1459707057u getting off bike sound<br />
-2927771336u bike retracts after getting off sound<br />
-1926977457u getting on bike sound<br />
-1502884739u getting on bike (law and order ding ding) sound<br />
+1129849155u sound of tires moving on the ground (for documentation only not muted)<br />
+1459707057u get off bike sound<br />
+2927771336u bike retracts after get off sound<br />
+1926977457u get on bike sound<br />
+1502884739u get on bike (law and order ding ding) sound<br />
 2281185168u armor activated on bike mount 1 sound<br />
 1409497247u armor activated on bike mount 2 sound<br />
 4094584434u armor activated on bike mount 3 sound<br />
 1520456362u armor activated on bike mount 4 sound<br />
 591947656u armor deactivated on bike unmount 1 sound<br />
 1494342936u armor deactivated on bike unmount 2 sound<br />
-2447662917u getting on car sound<br />
-387213036u getting on car (left side) sound<br />
-387213042u getting on car (right side) sound<br />
-3274402134u getting on car (law and order ding ding) sound<br />
-3486631158u loud noise after getting on car sound<br />
-2139458619u car retracts after getting off 1 sound<br />
-1822691130u car retracts after getting off 2 sound<br />
+2447662917u get on car (front side) sound<br />
+387213036u get on car (left side) sound<br />
+387213042u get on car (right side) sound<br />
+3274402134u get on car (law and order ding ding) sound<br />
+3486631158u loud noise after get on car sound<br />
+2139458619u car retracts after get off 1 sound<br />
+1822691130u car retracts after get off 2 sound<br />
 996224677u beeping noise while driving car sound<br />
 926343045u suspension noise while driving car sound 1<br />
 377816033u suspension noise while driving car sound 2<br />
@@ -147,4 +146,80 @@ Tiny Note
 2483290443u loud HEADOUT sound 1<br />
 1268992403u loud HEADOUT sound 2<br />
 263052418u loud HEADOUT sound 3<br />
+2795108589u get on bike left side 1<br />
+2695390141u get on bike left side 2<br />
+2567676718u get on bike left side 3<br />
+2394382850u get on bike left side 4<br />
+3414479536u get on bike left side 5<br />
+1986506869u get on bike left side 6<br />
+821000358u get on bike left side 1<br />
+1338907192u get on bike left side 7<br />
+444017931u get on bike left side 1<br />
+2715474440u get on bike left side 8<br />
+3610115111u get on bike left side 9<br />
+1926977457u get on bike left side 10<br />
+880458741u get on bike left side 1<br />
+3919766094u get on bike left side 11<br />
+1502884745u get on bike left side 12<br />
+2695390141u get on bike right side 1<br />
+444017931u get on bike right side 2<br />
+2715474440u get on bike right side 3<br />
+3610115111u get on bike right side 4<br />
+880458741u get on bike right side 5<br />
+1926977457u get on bike right side 6<br />
+3919766094u get on bike right side 7<br />
+1502884759u get on bike right side 8<br />
+4223857948u run and get on bike (right and front side)<br />
+4114772966u run and get on bike (right and front side)<br />
+339706116u run and get on bike (right and front side)<br />
+43800831u run and get on bike (right and front side)<br />
+4185420502u run and get on bike (right and front side)<br />
+1197881676u run and get on bike (right and front side)<br />
+417957110u run and get on bike (right and front side)<br />
+4268017148u run and get on bike (right and front side)<br />
+1304435119u run and get on bike (right and front side)<br />
+3897075427u run and get on bike (right and front side)<br />
+3316121526u run and get on bike (right and front side)<br />
+1279378066u run and get on bike (right and front side)<br />
+3102406090u run and get on bike (right and front side)<br />
+2417186760u run and get on bike (right and front side)<br />
+1526289975u run and get on bike (right and front side)<br />
+2599554367u run and get on bike (right and front side)<br />
+1084626322u run and get on bike (right and front side)<br />
+3774752747u run and get on bike (right and front side)<br />
+4015941358u run and get on bike (right and front side)<br />
+2695390141u run and get on bike (left side)<br />
+1222235457u run and get on bike (left side)<br />
+3955373966u run and get on bike (left side)<br />
+4156393369u run and get on bike (left side)<br />
+1338907192u run and get on bike (left side)<br />
+4161553576u run and get on bike (left side)<br />
+2582923240u run and get on bike (left side)<br />
+3319722272u run and get on bike (left side)<br />
+4114772966u run and get on bike (left side)<br />
+3773876168u run and get on bike (left side)<br />
+339706116u run and get on bike (left side)<br />
+2567676718u run and get on bike (left side)<br />
+1808469513u run and get on bike (left side)<br />
+4223857948u run and get on bike (left side)<br />
+2795108589u run and get on bike (left side)<br />
+77658627u run and get on bike (left side)<br />
+860197806u run and get on bike (left side)<br />
+221286236u run and get on bike (left side)<br />
+2599990357u run and get on bike (left side)<br />
+2115478403u run and get on bike (left side)<br />
+777940461u run and get on bike (left side)<br />
+4154749010u run and get on bike (left side)<br />
+444017931u run and get on bike (left side)<br />
+2715474440u run and get on bike (left side)<br />
+3610115111u run and get on bike (left side)<br />
+1926977457u run and get on bike (left side)<br />
+880458741u run and get on bike (left side)<br />
+3919766094u run and get on bike (left side)<br />
+1064086609u run and get on bike (left side)<br />
+2597338696u run and get on bike (left side)<br />
+4015941358u run and get on bike (left side)<br />
+3540071294u run and get on bike (left side)<br />
+
+
 
