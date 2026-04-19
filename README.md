@@ -62,26 +62,14 @@ If another mod already installed a working `version.dll`, you usually do not nee
 
 List Of Sounds
 ---------------
-Terminal related<br />
-Command prompt<br />
-System menu related<br />
-Map related<br />
-Entering a facility<br />
-Exit a facility<br />
-Facility scanning<br />
-Facility use terminal<br />
-Enter private room<br />
-Open map<br />
-Focusing on icons in map<br />
-Zooming in in map<br />
-Zooming out in map<br />
-get on a vehicle - bike<br />
-get off a vehicle - bike<br />
-normal vehicle speed sound - bike<br />
-vehicle boost sound - bike<br />
-get on a vehicle - car<br />
-get off a vehicle - car<br />
-skeleton sound<br />
+1. Vehicle boost sound
+2. Vehicle mount sound
+3. Vehicle armor sound
+4. Beeping noise while driving
+5. suspension noise while driving
+6. Command prompt sound
+7. Skeleton noise
+8. General terminal and menu noise
 
 
 
