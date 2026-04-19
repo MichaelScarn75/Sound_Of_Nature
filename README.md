@@ -14,12 +14,17 @@ This mod removes some annoying sounds related to terminal, vehicles, map, facili
 ## Main features
 This mod is 100% based on chloeyayo 's mod, I only added the sounds to the blocking list!
 
-I love to crank up the volume to max and enjoy the dirt and rocks beneath my feet,
+Crank up the volume to max and enjoy the dirt and rocks beneath your feet.
 
-but the game gives me jump scares with various loud machine noises such as getting on and off a vehicle,
-the terrifying HEADOUT bang after accepting an order, 
-entering and exiting a facility sound like a bomb going off,
-and more.......
+Examples:
+1. Vehicle boost sound
+2. Vehicle mount sound
+3. Vehicle armor sound
+4. Beeping noise while driving
+5. suspension noise while driving
+6. Command prompt sound
+7. Skeleton noise
+8. General terminal and menu noise
 
 There are a lot more that I didn't add such as 
 flying on a zipline, 
@@ -62,14 +67,26 @@ If another mod already installed a working `version.dll`, you usually do not nee
 
 List Of Sounds
 ---------------
-1. Vehicle boost sound
-2. Vehicle mount sound
-3. Vehicle armor sound
-4. Beeping noise while driving
-5. suspension noise while driving
-6. Command prompt sound
-7. Skeleton noise
-8. General terminal and menu noise
+Terminal related<br />
+Command prompt<br />
+System menu related<br />
+Map related<br />
+Entering a facility<br />
+Exit a facility<br />
+Facility scanning<br />
+Facility use terminal<br />
+Enter private room<br />
+Open map<br />
+Focusing on icons in map<br />
+Zooming in in map<br />
+Zooming out in map<br />
+get on a vehicle - bike<br />
+get off a vehicle - bike<br />
+normal vehicle speed sound - bike<br />
+vehicle boost sound - bike<br />
+get on a vehicle - car<br />
+get off a vehicle - car<br />
+skeleton sound<br />
 
 
 
