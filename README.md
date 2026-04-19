@@ -43,6 +43,7 @@ Thanks to chloeyayo for their source code!🔥👍
 - `VerboseLog=0` is recommended for normal use
 - `VerboseLog=1` enables extra logging for troubleshooting
 - `EnablePlayerVoiceHooks=0` is the recommended default after game updates
+- `ChainPostEventRelay=1` set to 1 if DollmanMute mod is installed, otherwise set as 0.
 
 ## Troubleshooting
 

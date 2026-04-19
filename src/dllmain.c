@@ -47,6 +47,7 @@ typedef struct Config {
     BOOL mute_command_prompt_appears;
     BOOL mute_skeleton;
     BOOL mute_loud_HEADOUT;
+    BOOL chain_post_event_relay;
 
 } Config;
 
@@ -773,6 +774,7 @@ static const char *k_default_ini =
 "EnablePlayerVoiceHooks=0\n"
 "EnableMarkHotkey=0\n"
 "MarkHotkeyVirtualKey=121\n"
+"ChainPostEventRelay=1\n"
 "Mute_vehicle_boost = 1\n"
 "Mute_get_off_bike = 1\n"
 "Mute_bike_retracts_after_get_off = 1\n"
@@ -897,6 +899,7 @@ static void load_config(void)
     g_cfg.mute_command_prompt_appears = TRUE;
     g_cfg.mute_skeleton = TRUE;
     g_cfg.mute_loud_HEADOUT = TRUE;
+    g_cfg.chain_post_event_relay = TRUE;
 
     ensure_default_ini();
 
@@ -905,6 +908,7 @@ static void load_config(void)
     g_cfg.enable_player_voice_hooks = GetPrivateProfileIntA("General", "EnablePlayerVoiceHooks", g_cfg.enable_player_voice_hooks, g_ini_path) != 0;
     g_cfg.enable_mark_hotkey = GetPrivateProfileIntA("General", "EnableMarkHotkey", g_cfg.enable_mark_hotkey, g_ini_path) != 0;
     g_cfg.mark_hotkey_virtual_key = (uint32_t)GetPrivateProfileIntA("General", "MarkHotkeyVirtualKey", (int)g_cfg.mark_hotkey_virtual_key, g_ini_path);
+    g_cfg.chain_post_event_relay = GetPrivateProfileIntA("General", "ChainPostEventRelay", g_cfg.chain_post_event_relay, g_ini_path) != 0;
     g_cfg.mute_vehicle_boost = GetPrivateProfileIntA("General", "Mute_vehicle_boost", g_cfg.verbose_log, g_ini_path) != 0;
     g_cfg.mute_get_off_bike = GetPrivateProfileIntA("General", "Mute_get_off_bike", g_cfg.verbose_log, g_ini_path) != 0;
     g_cfg.mute_bike_retracts_after_get_off = GetPrivateProfileIntA("General", "Mute_bike_retracts_after_get_off", g_cfg.verbose_log, g_ini_path) != 0;
@@ -1512,6 +1516,228 @@ static void *resolve_rva(uintptr_t rva)
     return (void *)((uintptr_t)exe_module + rva);
 }
 
+static AkPlayingID __cdecl hook_post_event_id(
+    AkUniqueID event_id,
+    AkGameObjectID game_object_id,
+    uint32_t callback_mask,
+    void *callback,
+    void *cookie,
+    uint32_t external_source_count,
+    void *external_sources,
+    uint32_t playing_id);
+
+static BOOL install_hook(void *target, void *detour, void **original, const char *label);
+
+/*
+ * True if every byte in [ptr, ptr+min_bytes) lies in committed memory that is executable.
+ * Walks VirtualQuery regions so a small span crossing a page boundary still succeeds.
+ */
+static BOOL executable_code_span_readable(const void *ptr, SIZE_T min_bytes)
+{
+    const uint8_t *p = (const uint8_t *)ptr;
+    const uint8_t *need_end;
+
+    if (ptr == NULL || min_bytes == 0) {
+        return FALSE;
+    }
+
+    need_end = p + min_bytes;
+    if (need_end < p) {
+        return FALSE;
+    }
+
+    while (p < need_end) {
+        MEMORY_BASIC_INFORMATION mbi;
+        const uint8_t *region_end;
+
+        if (VirtualQuery(p, &mbi, sizeof(mbi)) < sizeof(mbi)) {
+            return FALSE;
+        }
+        if (mbi.State != MEM_COMMIT) {
+            return FALSE;
+        }
+        if (!(mbi.Protect &
+                (PAGE_EXECUTE | PAGE_EXECUTE_READ | PAGE_EXECUTE_READWRITE | PAGE_EXECUTE_WRITECOPY))) {
+            return FALSE;
+        }
+
+        region_end = (const uint8_t *)mbi.BaseAddress + mbi.RegionSize;
+        if (region_end <= p) {
+            return FALSE;
+        }
+
+        if (region_end >= need_end) {
+            return TRUE;
+        }
+
+        p = region_end;
+    }
+
+    return TRUE;
+}
+
+static BOOL peer_dollman_mute_module_loaded(void)
+{
+    if (GetModuleHandleA("DollmanMute.asi") != NULL) {
+        return TRUE;
+    }
+    if (GetModuleHandleW(L"DollmanMute.asi") != NULL) {
+        return TRUE;
+    }
+    return FALSE;
+}
+
+static BOOL post_event_bytes_look_minhook_patched(const uint8_t *p)
+{
+    if (p == NULL) {
+        return FALSE;
+    }
+    return p[0] == 0xE9u || p[0] == 0xEBu;
+}
+
+static void *follow_minhook_jmp_from_postevent(void *post_va)
+{
+    uint8_t *p = (uint8_t *)post_va;
+    int step;
+
+    for (step = 0; step < 4; ++step) {
+        if (!executable_code_span_readable(p, 8)) {
+            return NULL;
+        }
+        if (p[0] == 0xEBu) {
+            int8_t rel8;
+
+            if (!executable_code_span_readable(p, 2)) {
+                return NULL;
+            }
+            rel8 = (int8_t)p[1];
+            p = p + 2 + (ptrdiff_t)rel8;
+            continue;
+        }
+        if (p[0] == 0xE9u) {
+            int32_t rel32;
+
+            if (!executable_code_span_readable(p, 5)) {
+                return NULL;
+            }
+            memcpy(&rel32, p + 1, sizeof(rel32));
+            return p + 5 + (ptrdiff_t)rel32;
+        }
+        return NULL;
+    }
+
+    return NULL;
+}
+
+static BOOL relay_bytes_look_minhook_x64(const uint8_t *p)
+{
+    if (p == NULL) {
+        return FALSE;
+    }
+    /* JMP [RIP+disp32] — tail of MinHook x64 relay before user detour */
+    return p[0] == 0xFFu && p[1] == 0x25u;
+}
+
+static BOOL install_post_event_id_hook(void)
+{
+    void *post_va;
+    void *relay_va;
+    const uint8_t *probe;
+    DWORD t0;
+    DWORD wait_cap_ms;
+    const DWORD peer_step_ms = 25u;
+    BOOL logged_wait = FALSE;
+    BOOL peer_present;
+
+    post_va = resolve_export(k_export_post_event_id);
+    if (post_va == NULL) {
+        log_line("Skip hook PostEventID: export not found");
+        return FALSE;
+    }
+
+    peer_present = peer_dollman_mute_module_loaded();
+    /*
+     * Long wait if DollmanMute is already mapped; short grace if not (covers SON loading before
+     * Dollman's DllMain registers the module).
+     */
+    wait_cap_ms = peer_present ? 5000u : 400u;
+    t0 = GetTickCount();
+
+    for (;;) {
+        if (!executable_code_span_readable(post_va, 8)) {
+            log_line("Skip hook PostEventID: PostEvent VA not readable as code");
+            return FALSE;
+        }
+
+        probe = (const uint8_t *)post_va;
+
+        if (post_event_bytes_look_minhook_patched(probe)) {
+            if (!g_cfg.chain_post_event_relay) {
+                log_line(
+                    "PostEvent is already patched (another mod hooks it). Enable ChainPostEventRelay=1 to chain on its "
+                    "MinHook relay, or load SoundOfNature before that mod.");
+                return FALSE;
+            }
+
+            relay_va = follow_minhook_jmp_from_postevent(post_va);
+            if (relay_va == NULL) {
+                log_line("PostEvent looks hooked but relay decode failed; cannot chain");
+                return FALSE;
+            }
+
+            if (!executable_code_span_readable(relay_va, 16)) {
+                log_line("Decoded relay %p is not in executable memory", relay_va);
+                return FALSE;
+            }
+
+            if (relay_bytes_look_minhook_x64((const uint8_t *)relay_va)) {
+                log_line(
+                    "PostEvent pre-hooked; chaining on MinHook relay at %p (SoundOfNature filters first, then peer mod)",
+                    relay_va);
+            } else {
+                log_line(
+                    "PostEvent pre-hooked; chaining at relay %p without FF25 signature (unusual; may break on updates)",
+                    relay_va);
+            }
+
+            return install_hook(relay_va, hook_post_event_id, (void **)&g_real_post_event_id, "PostEventID_RelayChain");
+        }
+
+        /*
+         * PostEvent is still the original prologue. Another ASI may patch it on a worker thread
+         * after we load; if DollmanMute is present and chaining is on, wait before claiming PostEvent.
+         */
+        if (g_cfg.chain_post_event_relay) {
+            DWORD elapsed = GetTickCount() - t0;
+            if (elapsed < wait_cap_ms) {
+                if (!logged_wait) {
+                    if (peer_present) {
+                        log_line(
+                            "PostEvent not patched yet while DollmanMute.asi is loaded; waiting up to %ums for it to "
+                            "hook (init thread race)",
+                            (unsigned int)wait_cap_ms);
+                    } else {
+                        log_line(
+                            "PostEvent not patched yet; waiting up to %ums for another mod to hook first (relay chain)",
+                            (unsigned int)wait_cap_ms);
+                    }
+                    logged_wait = TRUE;
+                }
+                Sleep(peer_step_ms);
+                continue;
+            }
+            if (peer_present) {
+                log_line(
+                    "PostEvent still unpatched after %ums with DollmanMute present; hooking PostEvent directly (peer "
+                    "may have failed to hook)",
+                    (unsigned int)wait_cap_ms);
+            }
+        }
+
+        return install_hook(post_va, hook_post_event_id, (void **)&g_real_post_event_id, "PostEventID");
+    }
+}
+
 static BOOL install_hook(void *target, void *detour, void **original, const char *label)
 {
     MH_STATUS status;
@@ -1884,12 +2110,13 @@ static DWORD WINAPI initialize_thread_proc(LPVOID parameter)
 
     log_line("SoundOfNature build: %s", k_build_tag);
     log_line(
-        "SoundOfNature init start: enabled=%d verbose=%d playerVoiceHooks=%d markHotkey=%d vk=%u",
+        "SoundOfNature init start: enabled=%d verbose=%d playerVoiceHooks=%d markHotkey=%d vk=%u chainRelay=%d",
         g_cfg.enabled,
         g_cfg.verbose_log,
         g_cfg.enable_player_voice_hooks,
         g_cfg.enable_mark_hotkey,
-        (unsigned int)g_cfg.mark_hotkey_virtual_key);
+        (unsigned int)g_cfg.mark_hotkey_virtual_key,
+        (int)g_cfg.chain_post_event_relay);
     log_line(
     "mute_vehicle_boost=%d \
     mute_get_off_bike=%d \
@@ -1953,7 +2180,7 @@ static DWORD WINAPI initialize_thread_proc(LPVOID parameter)
         return 0;
     }
 
-    if (install_export_hook(k_export_post_event_id, hook_post_event_id, (void **)&g_real_post_event_id, "PostEventID")) {
+    if (install_post_event_id_hook()) {
         ++hook_count;
     }
     if (g_cfg.verbose_log) {
