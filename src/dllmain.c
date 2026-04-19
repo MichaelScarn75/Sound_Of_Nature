@@ -703,7 +703,6 @@ static const AkUniqueID mute_suspension_noise_while_driving_car[] =
     307201841u,
     778969128u,
     2684990178u,
-    1302396062u,
     1384627326u,
     359280819u,
     307201847u,
