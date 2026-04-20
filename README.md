@@ -87,8 +87,10 @@ vehicle boost sound - bike<br />
 get on a vehicle - car<br />
 get off a vehicle - car<br />
 skeleton sound<br />
-
-
+get on a floating carrier<br />
+get off a floating carrier<br />
+get on a coffin board<br />
+get off a coffin board<br />
 
 
 
@@ -110,8 +112,10 @@ Tiny Note
 591947656u armor deactivated on bike unmount 1 sound<br />
 1494342936u armor deactivated on bike unmount 2 sound<br />
 2447662917u get on car (front side) sound<br />
-387213036u get on car (left side) sound<br />
-387213042u get on car (right side) sound<br />
+387213036u get on armored car (left side) sound<br />
+387213042u get on armored car (right side) sound<br />
+2447662927u get on armored car (left side)<br />
+2447662929u get on armored car (right side)<br />
 3274402134u get on car (law and order ding ding) sound<br />
 3486631158u loud noise after get on car sound<br />
 2139458619u car retracts after get off 1 sound<br />
@@ -226,6 +230,13 @@ Tiny Note
 2597338696u run and get on bike (left side)<br />
 4015941358u run and get on bike (left side)<br />
 3540071294u run and get on bike (left side)<br />
-
-
-
+1747066416u get on attached floating carrier<br />
+1231113891u get on detached floating carrier<br />
+632656462u get off floating carrier<br />
+3355914873u floating carrier drive sound<br />
+3945424578u two floating carrier drive sound<br />
+1567498544u floating carrier squeak noise 1<br />
+946948326u floating carrier squeak noise 2<br />
+516503854u get off coffin board<br />
+910830388u get on coffin board 1<br />
+738955545u get on coffin board 2<br />

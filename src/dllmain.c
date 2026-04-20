@@ -21,7 +21,7 @@ typedef struct Config {
     BOOL enable_player_voice_hooks;
     BOOL enable_mark_hotkey;
     uint32_t mark_hotkey_virtual_key;
-    BOOL mute_vehicle_boost;
+    BOOL mute_bike_driving_sound;
     BOOL mute_get_off_bike;
     BOOL mute_bike_retracts_after_get_off;
     BOOL mute_get_on_bike;
@@ -36,8 +36,10 @@ typedef struct Config {
     BOOL mute_armor_activated_on_bike_mount_4;
     BOOL mute_armor_deactivated_on_bike_unmount_1;
     BOOL mute_armor_deactivated_on_bike_unmount_2;
-    BOOL mute_get_on_car_left_side;
-    BOOL mute_get_on_car_right_side;
+    BOOL mute_get_on_armored_car_left_side;
+    BOOL mute_get_on_armored_car_right_side;
+    BOOL mute_get_on_non_armored_car_left_side;
+    BOOL mute_get_on_non_armored_car_right_side;
     BOOL mute_get_on_car_law_and_order_ding_ding;
     BOOL mute_loud_noise_after_get_on_car;
     BOOL mute_car_retracts_after_get_off_1;
@@ -47,6 +49,14 @@ typedef struct Config {
     BOOL mute_command_prompt_appears;
     BOOL mute_skeleton;
     BOOL mute_loud_HEADOUT;
+    BOOL mute_get_on_attached_floating_carrier;
+    BOOL mute_get_on_detached_floating_carrier;
+    BOOL mute_get_off_floating_carrier;
+    BOOL mute_floating_carrier_drive_sound;
+    BOOL mute_two_floating_carrier_drive_sound;
+    BOOL mute_floating_carrier_squeak_noise;
+    BOOL mute_get_on_coffin_board;
+    BOOL mute_get_off_coffin_board;
     BOOL chain_post_event_relay;
 
 } Config;
@@ -388,7 +398,6 @@ static AkUniqueID k_blocked_event_ids[] = {
     3476322142u,
     4110171568u,
     1438484945u,
-    663598735u,
     2726960333u,
     4210005104u,
     613436723u,
@@ -592,7 +601,7 @@ static AkUniqueID k_blocked_event_ids[] = {
 static AkUniqueID* g_blocked = NULL;
 static size_t g_blocked_count = 0;
 
-static AkUniqueID mute_vehicle_boost[] = {560195744u};
+static AkUniqueID mute_bike_driving_sound[] = {560195744u};
 static const AkUniqueID mute_get_off_bike[] = {1459707057u};
 static const AkUniqueID mute_bike_retracts_after_get_off[] = {2927771336u};
 static const AkUniqueID mute_get_on_bike[] = {1926977457u};
@@ -687,8 +696,10 @@ static const AkUniqueID mute_armor_activated_on_bike_mount_3[] = {4094584434u};
 static const AkUniqueID mute_armor_activated_on_bike_mount_4[] = {1520456362u};
 static const AkUniqueID mute_armor_deactivated_on_bike_unmount_1[] = {591947656u};
 static const AkUniqueID mute_armor_deactivated_on_bike_unmount_2[] = {1494342936u};
-static const AkUniqueID mute_get_on_car_left_side[] = {387213036u};
-static const AkUniqueID mute_get_on_car_right_side[] = {387213042u};
+static const AkUniqueID mute_get_on_armored_car_left_side[] = {387213036u};
+static const AkUniqueID mute_get_on_armored_car_right_side[] = {387213042u};
+static const AkUniqueID mute_get_on_non_armored_car_left_side[] = {2447662927u};
+static const AkUniqueID mute_get_on_non_armored_car_right_side[] = {2447662929u};
 static const AkUniqueID mute_get_on_car_law_and_order_ding_ding[] = {3274402134u};
 static const AkUniqueID mute_loud_noise_after_get_on_car[] = {3486631158u};
 static const AkUniqueID mute_car_retracts_after_get_off_1[] = {2139458619u};
@@ -737,6 +748,40 @@ static const AkUniqueID mute_loud_HEADOUT[] =
     1268992403u,
     263052418u
 };
+static const AkUniqueID mute_get_on_attached_floating_carrier[] = 
+{
+    1747066416u
+};
+static const AkUniqueID mute_get_on_detached_floating_carrier[] = 
+{
+    1231113891u
+};
+static const AkUniqueID mute_get_off_floating_carrier[] = 
+{
+    632656462u
+};
+static const AkUniqueID mute_floating_carrier_drive_sound[] = 
+{
+    3355914873u
+};
+static const AkUniqueID mute_two_floating_carrier_drive_sound[] = 
+{
+    3945424578u
+};
+static const AkUniqueID mute_floating_carrier_squeak_noise[] = 
+{
+    1567498544u,
+    946948326u
+};
+static const AkUniqueID mute_get_on_coffin_board[] = 
+{
+    516503854u
+};
+static const AkUniqueID mute_get_off_coffin_board[] = 
+{
+    910830388u,
+    738955545u
+};
 
 /*
  * These hashes are the currently confirmed PlayerVoice entries.
@@ -774,28 +819,42 @@ static const char *k_default_ini =
 "EnableMarkHotkey=0\n"
 "MarkHotkeyVirtualKey=121\n"
 "ChainPostEventRelay=1\n"
-"Mute_vehicle_boost = 1\n"
-"Mute_get_off_bike = 1\n"
-"Mute_bike_retracts_after_get_off = 1\n"
-"Mute_get_on_bike = 1\n"
-"Mute_get_on_bike_law_and_order_ding_ding = 1\n"
-"Mute_armor_activated_on_bike_mount_1 = 1\n"
-"Mute_armor_activated_on_bike_mount_2 = 1\n"
-"Mute_armor_activated_on_bike_mount_3 = 1\n"
-"Mute_armor_activated_on_bike_mount_4 = 1\n"
-"Mute_armor_deactivated_on_bike_unmount_1 = 1\n"
-"Mute_armor_deactivated_on_bike_unmount_2 = 1\n"
-"Mute_get_on_car_left_side = 1\n"
-"Mute_get_on_car_right_side = 1\n"
-"Mute_get_on_car_law_and_order_ding_ding = 1\n"
-"Mute_loud_noise_after_get_on_car = 1\n"
-"Mute_car_retracts_after_get_off_1 = 1\n"
-"Mute_car_retracts_after_get_off_2 = 1\n"
-"Mute_beeping_noise_while_driving_car = 1\n"
-"Mute_suspension_noise_while_driving_car = 1\n"
-"Mute_command_prompt_appears = 1\n"
-"Mute_skeleton = 1\n"
-"Mute_loud_HEADOUT = 1\n"
+"Mute_bike_driving_sound=1\n"
+"Mute_get_off_bike=1\n"
+"Mute_bike_retracts_after_get_off=1\n"
+"Mute_get_on_bike=1\n"
+"Mute_get_on_bike_left_side=1\n"
+"Mute_get_on_bike_right_side=1\n"
+"Mute_get_on_bike_law_and_order_ding_ding=1\n"
+"Mute_run_get_on_bike_right_and_front_side=1\n"
+"Mute_run_get_on_bike_left_side=1\n"
+"Mute_armor_activated_on_bike_mount_1=1\n"
+"Mute_armor_activated_on_bike_mount_2=1\n"
+"Mute_armor_activated_on_bike_mount_3=1\n"
+"Mute_armor_activated_on_bike_mount_4=1\n"
+"Mute_armor_deactivated_on_bike_unmount_1=1\n"
+"Mute_armor_deactivated_on_bike_unmount_2=1\n"
+"Mute_get_on_armored_car_left_side=1\n"
+"Mute_get_on_armored_car_right_side=1\n"
+"Mute_get_on_non_armored_car_left_side=1\n"
+"Mute_get_on_non_armored_car_right_side=1\n"
+"Mute_get_on_car_law_and_order_ding_ding=1\n"
+"Mute_loud_noise_after_get_on_car=1\n"
+"Mute_car_retracts_after_get_off_1=1\n"
+"Mute_car_retracts_after_get_off_2=1\n"
+"Mute_beeping_noise_while_driving_car=1\n"
+"Mute_suspension_noise_while_driving_car=1\n"
+"Mute_command_prompt_appears=1\n"
+"Mute_skeleton=1\n"
+"Mute_loud_HEADOUT=1\n"
+"Mute_get_on_attached_floating_carrier=1\n"
+"Mute_get_on_detached_floating_carrier=1\n"
+"Mute_get_off_floating_carrier=1\n"
+"Mute_floating_carrier_drive_sound=1\n"
+"Mute_two_floating_carrier_drive_sound=1\n"
+"Mute_floating_carrier_squeak_noise=1\n"
+"Mute_get_on_coffin_board=1\n"
+"Mute_get_off_coffin_board=1\n"
 ;
 
 static uint32_t g_seen_trace_hashes[4096];
@@ -872,7 +931,7 @@ static void load_config(void)
     g_cfg.enable_player_voice_hooks = FALSE;
     g_cfg.enable_mark_hotkey = TRUE;
     g_cfg.mark_hotkey_virtual_key = 121u;
-    g_cfg.mute_vehicle_boost = TRUE;
+    g_cfg.mute_bike_driving_sound = TRUE;
     g_cfg.mute_get_off_bike = TRUE;
     g_cfg.mute_bike_retracts_after_get_off = TRUE;
     g_cfg.mute_get_on_bike = TRUE;
@@ -887,8 +946,10 @@ static void load_config(void)
     g_cfg.mute_armor_activated_on_bike_mount_4 = TRUE;
     g_cfg.mute_armor_deactivated_on_bike_unmount_1 = TRUE;
     g_cfg.mute_armor_deactivated_on_bike_unmount_2 = TRUE;
-    g_cfg.mute_get_on_car_left_side = TRUE;
-    g_cfg.mute_get_on_car_right_side = TRUE;
+    g_cfg.mute_get_on_armored_car_left_side = TRUE;
+    g_cfg.mute_get_on_armored_car_right_side = TRUE;
+    g_cfg.mute_get_on_non_armored_car_left_side = TRUE;
+    g_cfg.mute_get_on_non_armored_car_right_side = TRUE;
     g_cfg.mute_get_on_car_law_and_order_ding_ding = TRUE;
     g_cfg.mute_loud_noise_after_get_on_car = TRUE;
     g_cfg.mute_car_retracts_after_get_off_1 = TRUE;
@@ -898,6 +959,14 @@ static void load_config(void)
     g_cfg.mute_command_prompt_appears = TRUE;
     g_cfg.mute_skeleton = TRUE;
     g_cfg.mute_loud_HEADOUT = TRUE;
+    g_cfg.mute_get_on_attached_floating_carrier = TRUE;
+    g_cfg.mute_get_on_detached_floating_carrier = TRUE;
+    g_cfg.mute_get_off_floating_carrier = TRUE;
+    g_cfg.mute_floating_carrier_drive_sound = TRUE;
+    g_cfg.mute_two_floating_carrier_drive_sound = TRUE;
+    g_cfg.mute_floating_carrier_squeak_noise = TRUE;
+    g_cfg.mute_get_on_coffin_board = TRUE;
+    g_cfg.mute_get_off_coffin_board = TRUE;
     g_cfg.chain_post_event_relay = TRUE;
 
     ensure_default_ini();
@@ -908,7 +977,7 @@ static void load_config(void)
     g_cfg.enable_mark_hotkey = GetPrivateProfileIntA("General", "EnableMarkHotkey", g_cfg.enable_mark_hotkey, g_ini_path) != 0;
     g_cfg.mark_hotkey_virtual_key = (uint32_t)GetPrivateProfileIntA("General", "MarkHotkeyVirtualKey", (int)g_cfg.mark_hotkey_virtual_key, g_ini_path);
     g_cfg.chain_post_event_relay = GetPrivateProfileIntA("General", "ChainPostEventRelay", g_cfg.chain_post_event_relay, g_ini_path) != 0;
-    g_cfg.mute_vehicle_boost = GetPrivateProfileIntA("General", "Mute_vehicle_boost", g_cfg.verbose_log, g_ini_path) != 0;
+    g_cfg.mute_bike_driving_sound = GetPrivateProfileIntA("General", "Mute_bike_driving_sound", g_cfg.verbose_log, g_ini_path) != 0;
     g_cfg.mute_get_off_bike = GetPrivateProfileIntA("General", "Mute_get_off_bike", g_cfg.verbose_log, g_ini_path) != 0;
     g_cfg.mute_bike_retracts_after_get_off = GetPrivateProfileIntA("General", "Mute_bike_retracts_after_get_off", g_cfg.verbose_log, g_ini_path) != 0;
     g_cfg.mute_get_on_bike = GetPrivateProfileIntA("General", "Mute_get_on_bike", g_cfg.verbose_log, g_ini_path) != 0;
@@ -923,8 +992,10 @@ static void load_config(void)
     g_cfg.mute_armor_activated_on_bike_mount_4 = GetPrivateProfileIntA("General", "Mute_armor_activated_on_bike_mount_4", g_cfg.verbose_log, g_ini_path) != 0;
     g_cfg.mute_armor_deactivated_on_bike_unmount_1 = GetPrivateProfileIntA("General", "Mute_armor_deactivated_on_bike_unmount_1", g_cfg.verbose_log, g_ini_path) != 0;
     g_cfg.mute_armor_deactivated_on_bike_unmount_2 = GetPrivateProfileIntA("General", "Mute_armor_deactivated_on_bike_unmount_2", g_cfg.verbose_log, g_ini_path) != 0;
-    g_cfg.mute_get_on_car_left_side = GetPrivateProfileIntA("General", "Mute_get_on_car_left_side", g_cfg.verbose_log, g_ini_path) != 0;
-    g_cfg.mute_get_on_car_right_side = GetPrivateProfileIntA("General", "Mute_get_on_car_right_side", g_cfg.verbose_log, g_ini_path) != 0;
+    g_cfg.mute_get_on_armored_car_left_side = GetPrivateProfileIntA("General", "Mute_get_on_armored_car_left_side", g_cfg.verbose_log, g_ini_path) != 0;
+    g_cfg.mute_get_on_armored_car_right_side = GetPrivateProfileIntA("General", "Mute_get_on_armored_car_right_side", g_cfg.verbose_log, g_ini_path) != 0;
+    g_cfg.mute_get_on_non_armored_car_left_side = GetPrivateProfileIntA("General", "Mute_get_on_non_armored_car_left_side", g_cfg.verbose_log, g_ini_path) != 0;
+    g_cfg.mute_get_on_non_armored_car_right_side = GetPrivateProfileIntA("General", "Mute_get_on_non_armored_car_right_side", g_cfg.verbose_log, g_ini_path) != 0;
     g_cfg.mute_get_on_car_law_and_order_ding_ding = GetPrivateProfileIntA("General", "Mute_get_on_car_law_and_order_ding_ding", g_cfg.verbose_log, g_ini_path) != 0;
     g_cfg.mute_loud_noise_after_get_on_car = GetPrivateProfileIntA("General", "Mute_loud_noise_after_get_on_car", g_cfg.verbose_log, g_ini_path) != 0;
     g_cfg.mute_car_retracts_after_get_off_1 = GetPrivateProfileIntA("General", "Mute_car_retracts_after_get_off_1", g_cfg.verbose_log, g_ini_path) != 0;
@@ -934,14 +1005,22 @@ static void load_config(void)
     g_cfg.mute_command_prompt_appears = GetPrivateProfileIntA("General", "Mute_command_prompt_appears", g_cfg.verbose_log, g_ini_path) != 0;
     g_cfg.mute_skeleton = GetPrivateProfileIntA("General", "Mute_skeleton", g_cfg.verbose_log, g_ini_path) != 0;
     g_cfg.mute_loud_HEADOUT = GetPrivateProfileIntA("General", "Mute_loud_HEADOUT", g_cfg.verbose_log, g_ini_path) != 0;
+    g_cfg.mute_get_on_attached_floating_carrier = GetPrivateProfileIntA("General", "Mute_get_on_attached_floating_carrier", g_cfg.verbose_log, g_ini_path) != 0;
+    g_cfg.mute_get_on_detached_floating_carrier = GetPrivateProfileIntA("General", "Mute_get_on_detached_floating_carrier", g_cfg.verbose_log, g_ini_path) != 0;
+    g_cfg.mute_get_off_floating_carrier = GetPrivateProfileIntA("General", "Mute_get_off_floating_carrier", g_cfg.verbose_log, g_ini_path) != 0;
+    g_cfg.mute_floating_carrier_drive_sound = GetPrivateProfileIntA("General", "Mute_floating_carrier_drive_sound", g_cfg.verbose_log, g_ini_path) != 0;
+    g_cfg.mute_two_floating_carrier_drive_sound = GetPrivateProfileIntA("General", "Mute_two_floating_carrier_drive_sound", g_cfg.verbose_log, g_ini_path) != 0;
+    g_cfg.mute_floating_carrier_squeak_noise = GetPrivateProfileIntA("General", "Mute_floating_carrier_squeak_noise", g_cfg.verbose_log, g_ini_path) != 0;
+    g_cfg.mute_get_on_coffin_board = GetPrivateProfileIntA("General", "Mute_get_on_coffin_board", g_cfg.verbose_log, g_ini_path) != 0;
+    g_cfg.mute_get_off_coffin_board = GetPrivateProfileIntA("General", "Mute_get_off_coffin_board", g_cfg.verbose_log, g_ini_path) != 0;
 
 
 
     appendArray(k_blocked_event_ids, sizeof(k_blocked_event_ids) / sizeof(AkUniqueID));
 
-    if (g_cfg.mute_vehicle_boost)
+    if (g_cfg.mute_bike_driving_sound)
     {
-        appendArray(mute_vehicle_boost, sizeof(mute_vehicle_boost) / sizeof(AkUniqueID));
+        appendArray(mute_bike_driving_sound, sizeof(mute_bike_driving_sound) / sizeof(AkUniqueID));
     }
     if (g_cfg.mute_get_off_bike)
     {
@@ -999,13 +1078,21 @@ static void load_config(void)
     {
         appendArray(mute_armor_deactivated_on_bike_unmount_2, sizeof(mute_armor_deactivated_on_bike_unmount_2) / sizeof(AkUniqueID));
     }
-    if (g_cfg.mute_get_on_car_left_side)
+    if (g_cfg.mute_get_on_armored_car_left_side)
     {
-        appendArray(mute_get_on_car_left_side, sizeof(mute_get_on_car_left_side) / sizeof(AkUniqueID));
+        appendArray(mute_get_on_armored_car_left_side, sizeof(mute_get_on_armored_car_left_side) / sizeof(AkUniqueID));
     }
-    if (g_cfg.mute_get_on_car_right_side)
+    if (g_cfg.mute_get_on_armored_car_right_side)
     {
-        appendArray(mute_get_on_car_right_side, sizeof(mute_get_on_car_right_side) / sizeof(AkUniqueID));
+        appendArray(mute_get_on_armored_car_right_side, sizeof(mute_get_on_armored_car_right_side) / sizeof(AkUniqueID));
+    }
+    if (g_cfg.mute_get_on_non_armored_car_left_side)
+    {
+        appendArray(mute_get_on_non_armored_car_left_side, sizeof(mute_get_on_non_armored_car_left_side) / sizeof(AkUniqueID));
+    }
+    if (g_cfg.mute_get_on_non_armored_car_right_side)
+    {
+        appendArray(mute_get_on_non_armored_car_right_side, sizeof(mute_get_on_non_armored_car_right_side) / sizeof(AkUniqueID));
     }
     if (g_cfg.mute_get_on_car_law_and_order_ding_ding)
     {
@@ -1042,6 +1129,38 @@ static void load_config(void)
     if (g_cfg.mute_loud_HEADOUT)
     {
         appendArray(mute_loud_HEADOUT, sizeof(mute_loud_HEADOUT) / sizeof(AkUniqueID));
+    }
+    if (g_cfg.mute_get_on_attached_floating_carrier)
+    {
+        appendArray(mute_get_on_attached_floating_carrier, sizeof(mute_get_on_attached_floating_carrier) / sizeof(AkUniqueID));
+    }
+    if (g_cfg.mute_get_on_detached_floating_carrier)
+    {
+        appendArray(mute_get_on_detached_floating_carrier, sizeof(mute_get_on_detached_floating_carrier) / sizeof(AkUniqueID));
+    }
+    if (g_cfg.mute_get_off_floating_carrier)
+    {
+        appendArray(mute_get_off_floating_carrier, sizeof(mute_get_off_floating_carrier) / sizeof(AkUniqueID));
+    }
+    if (g_cfg.mute_floating_carrier_drive_sound)
+    {
+        appendArray(mute_floating_carrier_drive_sound, sizeof(mute_floating_carrier_drive_sound) / sizeof(AkUniqueID));
+    }
+    if (g_cfg.mute_two_floating_carrier_drive_sound)
+    {
+        appendArray(mute_two_floating_carrier_drive_sound, sizeof(mute_two_floating_carrier_drive_sound) / sizeof(AkUniqueID));
+    }
+    if (g_cfg.mute_floating_carrier_squeak_noise)
+    {
+        appendArray(mute_floating_carrier_squeak_noise, sizeof(mute_floating_carrier_squeak_noise) / sizeof(AkUniqueID));
+    }
+    if (g_cfg.mute_get_on_coffin_board)
+    {
+        appendArray(mute_get_on_coffin_board, sizeof(mute_get_on_coffin_board) / sizeof(AkUniqueID));
+    }
+    if (g_cfg.mute_get_off_coffin_board)
+    {
+        appendArray(mute_get_off_coffin_board, sizeof(mute_get_off_coffin_board) / sizeof(AkUniqueID));
     }
 }
 
@@ -2117,7 +2236,7 @@ static DWORD WINAPI initialize_thread_proc(LPVOID parameter)
         (unsigned int)g_cfg.mark_hotkey_virtual_key,
         (int)g_cfg.chain_post_event_relay);
     log_line(
-    "mute_vehicle_boost=%d \
+    "mute_bike_driving_sound=%d \
     mute_get_off_bike=%d \
     mute_bike_retracts_after_get_off=%d \
     mute_get_on_bike=%d \
@@ -2132,8 +2251,10 @@ static DWORD WINAPI initialize_thread_proc(LPVOID parameter)
     mute_armor_activated_on_bike_mount_4=%d \
     mute_armor_deactivated_on_bike_unmount_1=%d \
     mute_armor_deactivated_on_bike_unmount_2=%d \
-    mute_get_on_car_left_side=%d \
-    mute_get_on_car_right_side=%d \
+    mute_get_on_armored_car_left_side=%d \
+    mute_get_on_armored_car_right_side=%d \
+    mute_get_on_non_armored_car_left_side=%d \
+    mute_get_on_non_armored_car_right_side=%d \
     mute_get_on_car_law_and_order_ding_ding=%d \
     mute_loud_noise_after_get_on_car=%d \
     mute_car_retracts_after_get_off_1=%d \
@@ -2142,9 +2263,17 @@ static DWORD WINAPI initialize_thread_proc(LPVOID parameter)
     mute_suspension_noise_while_driving_car=%d \
     mute_command_prompt_appears=%d \
     mute_skeleton=%d \
-    mute_loud_HEADOUT=%d",
+    mute_loud_HEADOUT=%d \
+    mute_get_on_attached_floating_carrier=%d \
+    mute_get_on_detached_floating_carrier=%d \
+    mute_get_off_floating_carrier=%d \
+    mute_floating_carrier_drive_sound=%d \
+    mute_two_floating_carrier_drive_sound=%d \
+    mute_floating_carrier_squeak_noise=%d \
+    mute_get_on_coffin_board=%d \
+    mute_get_off_coffin_board=%d ",
 
-    g_cfg.mute_vehicle_boost,
+    g_cfg.mute_bike_driving_sound,
     g_cfg.mute_get_off_bike,
     g_cfg.mute_bike_retracts_after_get_off,
     g_cfg.mute_get_on_bike,
@@ -2159,8 +2288,10 @@ static DWORD WINAPI initialize_thread_proc(LPVOID parameter)
     g_cfg.mute_armor_activated_on_bike_mount_4,
     g_cfg.mute_armor_deactivated_on_bike_unmount_1,
     g_cfg.mute_armor_deactivated_on_bike_unmount_2,
-    g_cfg.mute_get_on_car_left_side,
-    g_cfg.mute_get_on_car_right_side,
+    g_cfg.mute_get_on_armored_car_left_side,
+    g_cfg.mute_get_on_armored_car_right_side,
+    g_cfg.mute_get_on_non_armored_car_left_side,
+    g_cfg.mute_get_on_non_armored_car_right_side,
     g_cfg.mute_get_on_car_law_and_order_ding_ding,
     g_cfg.mute_loud_noise_after_get_on_car,
     g_cfg.mute_car_retracts_after_get_off_1,
@@ -2169,7 +2300,15 @@ static DWORD WINAPI initialize_thread_proc(LPVOID parameter)
     g_cfg.mute_suspension_noise_while_driving_car,
     g_cfg.mute_command_prompt_appears,
     g_cfg.mute_skeleton,
-    g_cfg.mute_loud_HEADOUT);
+    g_cfg.mute_loud_HEADOUT,
+    g_cfg.mute_get_on_attached_floating_carrier,
+    g_cfg.mute_get_on_detached_floating_carrier,
+    g_cfg.mute_get_off_floating_carrier,
+    g_cfg.mute_floating_carrier_drive_sound,
+    g_cfg.mute_two_floating_carrier_drive_sound,
+    g_cfg.mute_floating_carrier_squeak_noise,
+    g_cfg.mute_get_on_coffin_board,
+    g_cfg.mute_get_off_coffin_board);
 
     log_line("count: %d", g_blocked_count);
 
