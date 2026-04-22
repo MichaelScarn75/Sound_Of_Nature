@@ -65,7 +65,7 @@ If another mod already installed a working `version.dll`, you usually do not nee
 
 
 
-List Of Sounds
+Examples
 ---------------
 Terminal related<br />
 Command prompt<br />
@@ -97,8 +97,6 @@ get off a coffin board<br />
 
 Tiny Note
 ---------------
-*Any value not found in this tiny note from k_blocked_event_ids[] object means it is not documented :(
-
 560195744u vehicle boost sound<br />
 1129849155u sound of tires moving on the ground (for documentation only not muted)<br />
 1459707057u get off bike sound<br />
@@ -240,3 +238,96 @@ Tiny Note
 516503854u get off coffin board<br />
 910830388u get on coffin board 1<br />
 738955545u get on coffin board 2<br />
+2070267753u main menu button hover 1<br />
+1137822087u main menu button hover 2<br />
+915399611u setting tab click<br />
+3163658288u setting option previous value and slider<br />
+3778102407u setting option next value<br />
+3532501407u setting menu click 1<br />
+723131124u setting menu click 2<br />
+1005221178u setting menu return 1<br />
+2231428062u setting menu return 2<br />
+2147876058u load save menu hover<br />
+950340443u load save menu return<br />
+865275807u esc open system menu<br />
+3569950978u esc close system menu<br />
+991791339u setting menu back to system menu<br />
+739855082u use terminal 1<br />
+2707867662u use terminal 2<br />
+2715474440u use terminal prompt spin 1<br />
+2715474442u use terminal prompt spin 2<br />
+2715474443u use terminal prompt spin 3<br />
+2715474444u use terminal prompt spin 4<br />
+2715474445u use terminal prompt spin 5<br />
+2720010562u enter facility bang 1<br />
+2720010561u enter facility bang 2<br />
+2720010560u enter facility bang 3<br />
+2720010567u enter facility bang 4<br />
+2184015236u enter facility scan 1<br />
+2208794130u enter facility scan 2<br />
+1111526780u enter facility scan 3<br />
+2661789847u enter facility scan 4<br />
+4251155871u enter facility scan 5<br />
+1926586171u enter facility scan 6<br />
+1904916743u enter facility scan 7<br />
+629566067u enter facility scan 8<br />
+167690906u facility shut down bang<br />
+180688690u enter private room<br />
+1272080071u open pause menu<br />
+1555678938u close pause menu<br />
+3510403665u terminal selection<br />
+1395297620u open map<br />
+2936542795u flood or bushfire warning in map 1<br />
+810404280u flood or bushfire warning in map 2<br />
+2073984788u cargo management selection hover<br />
+868510127u cargo management selection select 1<br />
+3712952287u cargo management selection select 2<br />
+3537078332u cargo management selection deselect 1<br />
+1045856687u cargo management selection deselect 2<br />
+2697499513u placement options hover 1<br />
+3750735517u placement options hover 2<br />
+2370980422u placement options hover 3<br />
+2033295672u placement options hover 4<br />
+1318596166u placement options tool rack<br />
+1674371413u placement options place in private locker<br />
+4174348335u placement options offload<br />
+3190491779u placement options attach to suit<br />
+2940240412u placement options put on gloves<br />
+3918104627u placement options carry in hands<br />
+4136087566u map facility hover<br />
+102775411u qpid enter and return orders 1<br />
+964832389u qpid enter and return orders 2<br />
+3517219138u qpid enter and return orders 3<br />
+3952328711u qpid enter and return orders 4<br />
+701450156u route simulation in orders 1<br />
+332342612u route simulation in orders 2<br />
+810404280u route simulation in orders 3<br />
+852448669u route simulation in orders 4<br />
+415080345u hover on orders<br />
+3952025241u switch map info<br />
+3030815226u place marker on map 1<br />
+3435181501u place marker on map 2<br />
+399841250u zoomming in and out in map 1<br />
+1109766744u zoomming in and out in map 2<br />
+1885089791u zoomming in and out in map 3<br />
+3896968560u pan around the map 1<br />
+3957150253u pan around the map 2<br />
+1928788144u wear clothes<br />
+1430582278u wear hats<br />
+930962484u wear glasses<br />
+1777752120u take off glasses<br />
+406607417u wear BB<br />
+770438339u wear mask<br />
+1676408000u change cosmetics color<br />
+713030780u fabricate vehicle 1<br />
+191922392u fabricate vehicle 2<br />
+509841768u claim material menu shift key add<br />
+913490515u claim material menu hover<br />
+1670932874u claim material menu change previous value<br />
+3468270857u claim material menu change next value<br />
+1793364560u claim material menu click material<br />
+4177125866u claim material menu error no material selected<br />
+2240337728u claim material menu add to queue<br />
+990015723u claim material menu right click remove material<br />
+466973018u notification yellow<br />
+3413927717u notification white<br />

@@ -21,6 +21,7 @@ typedef struct Config {
     BOOL enable_player_voice_hooks;
     BOOL enable_mark_hotkey;
     uint32_t mark_hotkey_virtual_key;
+    BOOL chain_post_event_relay;
     BOOL mute_bike_driving_sound;
     BOOL mute_get_off_bike;
     BOOL mute_bike_retracts_after_get_off;
@@ -57,7 +58,49 @@ typedef struct Config {
     BOOL mute_floating_carrier_squeak_noise;
     BOOL mute_get_on_coffin_board;
     BOOL mute_get_off_coffin_board;
-    BOOL chain_post_event_relay;
+    BOOL mute_main_menu_button_hover;
+    BOOL mute_setting_tab_click;
+    BOOL mute_setting_option_previous_value_and_slider;
+    BOOL mute_setting_option_next_value;
+    BOOL mute_setting_menu_click;
+    BOOL mute_setting_menu_return;
+    BOOL mute_load_save_menu_hover;
+    BOOL mute_load_save_menu_return;
+    BOOL mute_esc_open_system_menu;
+    BOOL mute_esc_close_system_menu;
+    BOOL mute_setting_menu_back_to_system_menu;
+    BOOL mute_use_terminal;
+    BOOL mute_use_terminal_prompt_spin;
+    BOOL mute_enter_facility_bang;
+    BOOL mute_enter_facility_scan;
+    BOOL mute_facility_shut_down_bang;
+    BOOL mute_enter_private_room;
+    BOOL mute_open_pause_menu;
+    BOOL mute_close_pause_menu;
+    BOOL mute_terminal_selection;
+    BOOL mute_open_map;
+    BOOL mute_flood_or_bushfire_warning_in_map;
+    BOOL mute_cargo_management_selection;
+    BOOL mute_placement_options;
+    BOOL mute_map_facility_hover;
+    BOOL mute_qpid_enter_and_return_orders;
+    BOOL mute_route_simulation_in_orders;
+    BOOL mute_hover_on_orders;
+    BOOL mute_switch_map_info;
+    BOOL mute_place_marker_on_map;
+    BOOL mute_zoomming_in_and_out_in_map;
+    BOOL mute_pan_around_the_map;
+    BOOL mute_wear_clothes;
+    BOOL mute_wear_hats;
+    BOOL mute_wear_glasses;
+    BOOL mute_take_off_glasses;
+    BOOL mute_wear_BB;
+    BOOL mute_wear_mask;
+    BOOL mute_change_cosmetics_color;
+    BOOL mute_fabricate_vehicle;
+    BOOL mute_claim_material_menu;
+    BOOL mute_notification_yellow;
+    BOOL mute_notification_white;
 
 } Config;
 
@@ -192,411 +235,6 @@ static const uintptr_t k_rva_play_voice_with_sentence_randomly_impl = 0x00D8B870
  * These IDs are the currently confirmed Wwise voice events.
  * They are blocked directly without any heuristic windows or runtime learning.
  */
-static AkUniqueID k_blocked_event_ids[] = {
-    3284068560u,
-    2798630017u,
-    1733184735u,
-    2567587604u,
-    2567587607u,
-    2567587606u,
-    2567587601u,
-    992887449u,
-    3233213689u,
-    2773751647u,
-    165619254u,
-    1603951739u,
-    4256726964u,
-    3585186072u,
-    2676433725u,
-    638487677u,
-    1507224536u,
-    3905632035u,
-    3168930433u,
-    3140069249u,
-    4017111862u,
-    224790985u,
-    2456850614u,
-    2099105328u,
-    3944671037u,
-    2263809928u,
-    4221338413u,
-    1637989313u,
-    2970211219u,
-    3591097749u,
-    869564559u,
-    3878770236u,
-    3605405166u,
-    725524099u,
-    315251235u,
-    1795012989u,
-    3415059315u,
-    646554650u,
-    3921317319u,
-    1429370485u,
-    1257915254u,
-    643870271u,
-    1439781058u,
-    3854673212u,
-    1548855803u,
-    1518831793u,
-    1508105510u,
-    2348239761u,
-    2021622470u,
-    776095589u,
-    368692446u,
-    527409361u,
-    459588945u,
-    1985960751u,
-    2310251109u,
-    3024697276u,
-    2046518477u,
-    4046886378u,
-    178731716u,
-    3805528000u,
-    1285482429u,
-    2012352180u,
-    333919160u,
-    2861415549u,
-    1914699873u,
-    2293652900u,
-    21826641u,
-    2740872275u,
-    549326881u,
-    4050110983u,
-    159832506u,
-    2989455494u,
-    1953201378u,
-    3534069578u,
-    1348802973u,
-    1946900208u,
-    259674397u,
-    5173654u,
-    1393837415u,
-    2448306122u,
-    82486132u,
-    37506412u,
-    3768073324u,
-    802829529u,
-    3456793563u,
-    1025812424u,
-    195251143u,
-    2682504644u,
-    1785020919u,
-    2636836309u,
-    1866842586u,
-    1586249092u,
-    674397645u,
-    4219259210u,
-    1558576943u,
-    1178938265u,
-    1336537181u,
-    1429291842u,
-    1936528302u,
-    422290673u,
-    284196431u,
-    2865024107u,
-    2935846400u,
-    3307288946u,
-    1223303172u,
-    1923115858u,
-    2740480240u,
-    2660986233u,
-    1003370679u,
-    3834721711u,
-    229200171u,
-    1352687307u,
-    211632565u,
-    2322383157u,
-    3914757881u,
-    988571042u,
-    1548974146u,
-    2144513936u,
-    4190477518u,
-    432128778u,
-    3030468376u,
-    4293834179u,
-    74568359u,
-    2934402211u,
-    1076501279u,
-    2978136794u,
-    599038279u,
-    478623314u,
-    3424562390u,
-    539531194u,
-    2062023765u,
-    731873367u,
-    4038956315u,
-    3936772670u,
-    317058295u,
-    2520517424u,
-    2626914621u,
-    2763738057u,
-    1981244672u,
-    396725898u,
-    1787325416u,
-    136150756u,
-    707472852u,
-    3535262926u,
-    330687782u,
-    3985098775u,
-    559924465u,
-    1939921134u,
-    3748989817u,
-    1077203749u,
-    78991449u,
-    3908522946u,
-    3076354231u,
-    2364414400u,
-    1561596510u,
-    429075305u,
-    3607860710u,
-    1923573158u,
-    4024186753u,
-    3845483378u,
-    2968239945u,
-    4178484107u,
-    2510219908u,
-    1462438604u,
-    820448725u,
-    1591822643u,
-    296238771u,
-    2234237534u,
-    574091759u,
-    2011997921u,
-    476574503u,
-    3578534991u,
-    1232391797u,
-    3236541802u,
-    2878600087u,
-    513173890u,
-    103996200u,
-    3940520104u,
-    231061502u,
-    2038094684u,
-    804699196u,
-    2625747261u,
-    2113740815u,
-    1029468891u,
-    369488065u,
-    3698786781u,
-    3261598609u,
-    2414703107u,
-    1500829568u,
-    4283803508u,
-    1320369559u,
-    1226691569u,
-    1701222739u,
-    1351286506u,
-    16720085u,
-    1602338174u,
-    428221819u,
-    2348979164u,
-    3197634679u,
-    951452877u,
-    1173229866u,
-    1207716648u,
-    3476322142u,
-    4110171568u,
-    1438484945u,
-    2726960333u,
-    4210005104u,
-    613436723u,
-    3571361698u,
-    2070267753u,
-    1179791854u,
-    3196665610u,
-    3919766094u,
-    256274388u,
-    4128099750u,
-    3889932191u,
-    3722273492u,
-    2784640045u,
-    1423335587u,
-    1111526780u,
-    3178670400u,
-    2851083764u,
-    466973018u,
-    3426973595u,
-    2357171602u,
-    3647448414u,
-    2059198182u,
-    3598456285u,
-    632526604u,
-    2158589958u,
-    1495520471u,
-    1186711060u,
-    708460642u,
-    3766970345u,
-    1115074069u,
-    1989806625u,
-    2061464273u,
-    3413927717u,
-    251068610u,
-    713030780u,
-    460180048u,
-    2485732868u,
-    3757601819u,
-    366993297u,
-    3135270559u,
-    2299105747u,
-    81065776u,
-    2817842351u,
-    619916792u,
-    2831984945u,
-    2179982290u,
-    2384046104u,
-    2259097663u,
-    374722817u,
-    3776959300u,
-    2119317720u,
-    1140435226u,
-    2321091874u,
-    1802822476u,
-    324575200u,
-    2394382850u,
-    3414479536u,
-    1986506869u,
-    821000358u,
-    1913764618u,
-    264936595u,
-    1256893394u,
-    2707867662u,
-    723131124u,
-    1263195835u,
-    2147876058u,
-    3510403665u,
-    950340443u,
-    2231428062u,
-    3532501407u,
-    1573347987u,
-    3750735517u,
-    2000941181u,
-    2073984788u,
-    2370980422u,
-    2697499513u,
-    2033295672u,
-    3712952287u,
-    1045856687u,
-    4174348335u,
-    1674371413u,
-    913490515u,
-    1793364560u,
-    1670932874u,
-    3468270857u,
-    3753469066u,
-    2721230577u,
-    1849669318u,
-    180688690u,
-    2632225724u,
-    3361813956u,
-    2498114625u,
-    2153032944u,
-    2720010562u,
-    2720010561u,
-    2720010560u,
-    2720010567u,
-    167690906u,
-    2049865167u,
-    2328986834u,
-    2521157842u,
-    2151504950u,
-    1909352289u,
-    2118156931u,
-    2025347002u,
-    549275959u,
-    2172976697u,
-    1909352294u,
-    865275807u,
-    3569950978u,
-    3153882916u,
-    142028550u,
-    1230058865u,
-    2661789847u,
-    2597338696u,
-    3028058083u,
-    991791339u,
-    1012508671u,
-    3358714323u,
-    221286236u,
-    2664621691u,
-    431169387u,
-    415080345u,
-    810404280u,
-    852448669u,
-    332342612u,
-    2240882945u,
-    4177125866u,
-    747838348u,
-    701450156u,
-    3896968560u,
-    4047967045u,
-    1885089791u,
-    399841250u,
-    1109766744u,
-    3957150253u,
-    1674825824u,
-    4136087566u,
-    2715474440u,
-    2715474443u,
-    2715474442u,
-    2715474445u,
-    2715474444u,
-    1331287945u,
-    414439536u,
-    3420802180u,
-    3952025241u,
-    1928354410u,
-    3030815226u,
-    1866547104u,
-    3779307104u,
-    3955373966u,
-    4156393369u,
-    1338907192u,
-    4161553576u,
-    2582923240u,
-    3319722272u,
-    3921785831u,
-    2695390141u,
-    368647606u,
-    1239541593u,
-    1395297620u,
-    3921785828u,
-    3435181501u,
-    3517219138u,
-    3952328711u,
-    964832389u,
-    2678105747u,
-    331600386u,
-    102775411u,
-    1392694901u,
-    1288713632u,
-    525787567u,
-    1753223761u,
-    3112250477u,
-    1783879427u,
-    1110007606u,
-    1214870258u,
-    2405532560u,
-    2217329929u,
-    538420969u,
-    1137822087u,
-    915399611u,
-    3778102407u,
-    3163658288u,
-    1005221178u,
-    1156208828u,
-    1518082367u,
-    4140638001u,
-    3457012000u,
-    3044954202u,
-    1555678938u,
-    1444514880u,
-    804669567u,
-    1272080071u,
-    1753543745u,
-    4223857948u,
-    2447662917u, //supposed to be get on car from front side sound, if not enabled the whole mod won't work :(
-};
 
 static AkUniqueID* g_blocked = NULL;
 static size_t g_blocked_count = 0;
@@ -782,6 +420,229 @@ static const AkUniqueID mute_get_off_coffin_board[] =
     910830388u,
     738955545u
 };
+static const AkUniqueID mute_main_menu_button_hover[] =
+{
+    2070267753u,
+    1137822087u
+};
+static const AkUniqueID mute_setting_tab_click[] =
+{
+    915399611u
+};
+static const AkUniqueID mute_setting_option_previous_value_and_slider[] =
+{
+    3163658288u
+};
+static const AkUniqueID mute_setting_option_next_value[] =
+{
+    3778102407u
+};
+static const AkUniqueID mute_setting_menu_click[] =
+{
+    3532501407u,
+    723131124u
+};
+static const AkUniqueID mute_setting_menu_return[] =
+{
+    1005221178u,
+    2231428062u
+};
+static const AkUniqueID mute_load_save_menu_hover[] =
+{
+    2147876058u
+};
+static const AkUniqueID mute_load_save_menu_return[] =
+{
+    950340443u
+};
+static const AkUniqueID mute_esc_open_system_menu[] =
+{
+    865275807u
+};
+static const AkUniqueID mute_esc_close_system_menu[] =
+{
+    3569950978u
+};
+static const AkUniqueID mute_setting_menu_back_to_system_menu[] =
+{
+    991791339u
+};
+static const AkUniqueID mute_use_terminal[] =
+{
+    739855082u,
+    2707867662u
+};
+static const AkUniqueID mute_use_terminal_prompt_spin[] =
+{
+    2715474440u,
+    2715474442u,
+    2715474443u,
+    2715474444u,
+    2715474445u
+};
+static const AkUniqueID mute_enter_facility_bang[] =
+{
+    2720010562u,
+    2720010561u,
+    2720010560u,
+    2720010567u
+};
+static const AkUniqueID mute_enter_facility_scan[] =
+{
+    2184015236u,
+    2208794130u,
+    1111526780u,
+    2661789847u,
+    4251155871u,
+    1926586171u,
+    1904916743u,
+    629566067u
+};
+static const AkUniqueID mute_facility_shut_down_bang[] =
+{
+    167690906u
+};
+static const AkUniqueID mute_enter_private_room[] =
+{
+    180688690u
+};
+static const AkUniqueID mute_open_pause_menu[] =
+{
+    1272080071u
+};
+static const AkUniqueID mute_close_pause_menu[] =
+{
+    1555678938u,
+};
+static const AkUniqueID mute_terminal_selection[] =
+{
+    3510403665u
+};
+static const AkUniqueID mute_open_map[] =
+{
+    1395297620u
+};
+static const AkUniqueID mute_flood_or_bushfire_warning_in_map[] =
+{
+    2936542795u,
+    810404280u 
+};
+static const AkUniqueID mute_cargo_management_selection[] =
+{
+    2073984788u,
+    868510127u,
+    3712952287u,
+    3537078332u,
+    1045856687u
+};
+static const AkUniqueID mute_placement_options[] =
+{
+    2697499513u,
+    3750735517u,
+    2370980422u,
+    2033295672u,
+    1318596166u,
+    1674371413u,
+    4174348335u,
+    3190491779u,
+    2940240412u,
+    3918104627u
+};
+static const AkUniqueID mute_map_facility_hover[] =
+{
+    4136087566u
+};
+static const AkUniqueID mute_qpid_enter_and_return_orders[] =
+{
+    102775411u,
+    964832389u,
+    3517219138u,
+    3952328711u
+};
+static const AkUniqueID mute_route_simulation_in_orders[] =
+{
+    701450156u,
+    332342612u,
+    810404280u,
+    852448669u
+};
+static const AkUniqueID mute_hover_on_orders[] =
+{
+    415080345u
+};
+static const AkUniqueID mute_switch_map_info[] =
+{
+    3952025241u
+};
+static const AkUniqueID mute_place_marker_on_map[] =
+{
+    3030815226u,
+    3435181501u
+};
+static const AkUniqueID mute_zoomming_in_and_out_in_map[] =
+{
+    399841250u,
+    1109766744u,
+    1885089791u
+};
+static const AkUniqueID mute_pan_around_the_map[] =
+{
+    3896968560u,
+    3957150253u
+};
+static const AkUniqueID mute_wear_clothes[] =
+{
+    1928788144u
+};
+static const AkUniqueID mute_wear_hats[] =
+{
+    1430582278u
+};
+static const AkUniqueID mute_wear_glasses[] =
+{
+    930962484u
+};
+static const AkUniqueID mute_take_off_glasses[] =
+{
+    1777752120u
+};
+static const AkUniqueID mute_wear_BB[] =
+{
+    406607417u
+};
+static const AkUniqueID mute_wear_mask[] =
+{
+    770438339u
+};
+static const AkUniqueID mute_change_cosmetics_color[] =
+{
+    1676408000u
+};
+static const AkUniqueID mute_fabricate_vehicle[] =
+{
+    713030780u,
+    191922392u
+};
+static const AkUniqueID mute_claim_material_menu[] =
+{
+    509841768u,
+    913490515u,
+    1670932874u,
+    3468270857u,
+    1793364560u,
+    4177125866u,
+    2240337728u,
+    990015723u
+};
+static const AkUniqueID mute_notification_yellow[] =
+{
+    466973018u
+};
+static const AkUniqueID mute_notification_white[] =
+{
+    3413927717u
+};
+
 
 /*
  * These hashes are the currently confirmed PlayerVoice entries.
@@ -855,6 +716,49 @@ static const char *k_default_ini =
 "Mute_floating_carrier_squeak_noise=1\n"
 "Mute_get_on_coffin_board=1\n"
 "Mute_get_off_coffin_board=1\n"
+"Mute_main_menu_button_hover=1\n"
+"Mute_setting_tab_click=1\n"
+"Mute_setting_option_previous_value_and_slider=1\n"
+"Mute_setting_option_next_value=1\n"
+"Mute_setting_menu_click=1\n"
+"Mute_setting_menu_return=1\n"
+"Mute_load_save_menu_hover=1\n"
+"Mute_load_save_menu_return=1\n"
+"Mute_esc_open_system_menu=1\n"
+"Mute_esc_close_system_menu=1\n"
+"Mute_setting_menu_back_to_system_menu=1\n"
+"Mute_use_terminal=1\n"
+"Mute_use_terminal_prompt_spin=1\n"
+"Mute_enter_facility_bang=1\n"
+"Mute_enter_facility_scan=1\n"
+"Mute_facility_shut_down_bang=1\n"
+"Mute_enter_private_room=1\n"
+"Mute_open_pause_menu=1\n"
+"Mute_close_pause_menu=1\n"
+"Mute_terminal_selection=1\n"
+"Mute_open_map=1\n"
+"Mute_flood_or_bushfire_warning_in_map=1\n"
+"Mute_cargo_management_selection=1\n"
+"Mute_placement_options=1\n"
+"Mute_map_facility_hover=1\n"
+"Mute_qpid_enter_and_return_orders=1\n"
+"Mute_route_simulation_in_orders=1\n"
+"Mute_hover_on_orders=1\n"
+"Mute_switch_map_info=1\n"
+"Mute_place_marker_on_map=1\n"
+"Mute_zoomming_in_and_out_in_map=1\n"
+"Mute_pan_around_the_map=1\n"
+"Mute_wear_clothes=1\n"
+"Mute_wear_hats=1\n"
+"Mute_wear_glasses=1\n"
+"Mute_take_off_glasses=1\n"
+"Mute_wear_BB=1\n"
+"Mute_wear_mask=1\n"
+"Mute_change_cosmetics_color=1\n"
+"Mute_fabricate_vehicle=1\n"
+"Mute_claim_material_menu=1\n"
+"Mute_notification_yellow=1\n"
+"Mute_notification_white=1\n"
 ;
 
 static uint32_t g_seen_trace_hashes[4096];
@@ -931,6 +835,7 @@ static void load_config(void)
     g_cfg.enable_player_voice_hooks = FALSE;
     g_cfg.enable_mark_hotkey = TRUE;
     g_cfg.mark_hotkey_virtual_key = 121u;
+    g_cfg.chain_post_event_relay = TRUE;
     g_cfg.mute_bike_driving_sound = TRUE;
     g_cfg.mute_get_off_bike = TRUE;
     g_cfg.mute_bike_retracts_after_get_off = TRUE;
@@ -967,7 +872,49 @@ static void load_config(void)
     g_cfg.mute_floating_carrier_squeak_noise = TRUE;
     g_cfg.mute_get_on_coffin_board = TRUE;
     g_cfg.mute_get_off_coffin_board = TRUE;
-    g_cfg.chain_post_event_relay = TRUE;
+    g_cfg.mute_main_menu_button_hover = TRUE;
+    g_cfg.mute_setting_tab_click = TRUE;
+    g_cfg.mute_setting_option_previous_value_and_slider = TRUE;
+    g_cfg.mute_setting_option_next_value = TRUE;
+    g_cfg.mute_setting_menu_click = TRUE;
+    g_cfg.mute_setting_menu_return = TRUE;
+    g_cfg.mute_load_save_menu_hover = TRUE;
+    g_cfg.mute_load_save_menu_return = TRUE;
+    g_cfg.mute_esc_open_system_menu = TRUE;
+    g_cfg.mute_esc_close_system_menu = TRUE;
+    g_cfg.mute_setting_menu_back_to_system_menu = TRUE;
+    g_cfg.mute_use_terminal = TRUE;
+    g_cfg.mute_use_terminal_prompt_spin = TRUE;
+    g_cfg.mute_enter_facility_bang = TRUE;
+    g_cfg.mute_enter_facility_scan = TRUE;
+    g_cfg.mute_facility_shut_down_bang = TRUE;
+    g_cfg.mute_enter_private_room = TRUE;
+    g_cfg.mute_open_pause_menu = TRUE;
+    g_cfg.mute_close_pause_menu = TRUE;
+    g_cfg.mute_terminal_selection = TRUE;
+    g_cfg.mute_open_map = TRUE;
+    g_cfg.mute_flood_or_bushfire_warning_in_map = TRUE;
+    g_cfg.mute_cargo_management_selection = TRUE;
+    g_cfg.mute_placement_options = TRUE;
+    g_cfg.mute_map_facility_hover = TRUE;
+    g_cfg.mute_qpid_enter_and_return_orders = TRUE;
+    g_cfg.mute_route_simulation_in_orders = TRUE;
+    g_cfg.mute_hover_on_orders = TRUE;
+    g_cfg.mute_switch_map_info = TRUE;
+    g_cfg.mute_place_marker_on_map = TRUE;
+    g_cfg.mute_zoomming_in_and_out_in_map = TRUE;
+    g_cfg.mute_pan_around_the_map = TRUE;
+    g_cfg.mute_wear_clothes = TRUE;
+    g_cfg.mute_wear_hats = TRUE;
+    g_cfg.mute_wear_glasses = TRUE;
+    g_cfg.mute_take_off_glasses = TRUE;
+    g_cfg.mute_wear_BB = TRUE;
+    g_cfg.mute_wear_mask = TRUE;
+    g_cfg.mute_change_cosmetics_color = TRUE;
+    g_cfg.mute_fabricate_vehicle = TRUE;
+    g_cfg.mute_claim_material_menu = TRUE;
+    g_cfg.mute_notification_yellow = TRUE;
+    g_cfg.mute_notification_white = TRUE;
 
     ensure_default_ini();
 
@@ -1013,10 +960,52 @@ static void load_config(void)
     g_cfg.mute_floating_carrier_squeak_noise = GetPrivateProfileIntA("General", "Mute_floating_carrier_squeak_noise", g_cfg.verbose_log, g_ini_path) != 0;
     g_cfg.mute_get_on_coffin_board = GetPrivateProfileIntA("General", "Mute_get_on_coffin_board", g_cfg.verbose_log, g_ini_path) != 0;
     g_cfg.mute_get_off_coffin_board = GetPrivateProfileIntA("General", "Mute_get_off_coffin_board", g_cfg.verbose_log, g_ini_path) != 0;
+    g_cfg.mute_main_menu_button_hover = GetPrivateProfileIntA("General", "Mute_main_menu_button_hover", g_cfg.verbose_log, g_ini_path) != 0;
+    g_cfg.mute_setting_tab_click = GetPrivateProfileIntA("General", "Mute_setting_tab_click", g_cfg.verbose_log, g_ini_path) != 0;
+    g_cfg.mute_setting_option_previous_value_and_slider = GetPrivateProfileIntA("General", "Mute_setting_option_previous_value_and_slider", g_cfg.verbose_log, g_ini_path) != 0;
+    g_cfg.mute_setting_option_next_value = GetPrivateProfileIntA("General", "Mute_setting_option_next_value", g_cfg.verbose_log, g_ini_path) != 0;
+    g_cfg.mute_setting_menu_click = GetPrivateProfileIntA("General", "Mute_setting_menu_click", g_cfg.verbose_log, g_ini_path) != 0;
+    g_cfg.mute_setting_menu_return = GetPrivateProfileIntA("General", "Mute_setting_menu_return", g_cfg.verbose_log, g_ini_path) != 0;
+    g_cfg.mute_load_save_menu_hover = GetPrivateProfileIntA("General", "Mute_load_save_menu_hover", g_cfg.verbose_log, g_ini_path) != 0;
+    g_cfg.mute_load_save_menu_return = GetPrivateProfileIntA("General", "Mute_load_save_menu_return", g_cfg.verbose_log, g_ini_path) != 0;
+    g_cfg.mute_esc_open_system_menu = GetPrivateProfileIntA("General", "Mute_esc_open_system_menu", g_cfg.verbose_log, g_ini_path) != 0;
+    g_cfg.mute_esc_close_system_menu = GetPrivateProfileIntA("General", "Mute_esc_close_system_menu", g_cfg.verbose_log, g_ini_path) != 0;
+    g_cfg.mute_setting_menu_back_to_system_menu = GetPrivateProfileIntA("General", "Mute_setting_menu_back_to_system_menu", g_cfg.verbose_log, g_ini_path) != 0;
+    g_cfg.mute_use_terminal = GetPrivateProfileIntA("General", "Mute_use_terminal", g_cfg.verbose_log, g_ini_path) != 0;
+    g_cfg.mute_use_terminal_prompt_spin = GetPrivateProfileIntA("General", "Mute_use_terminal_prompt_spin", g_cfg.verbose_log, g_ini_path) != 0;
+    g_cfg.mute_enter_facility_bang = GetPrivateProfileIntA("General", "Mute_enter_facility_bang", g_cfg.verbose_log, g_ini_path) != 0;
+    g_cfg.mute_enter_facility_scan = GetPrivateProfileIntA("General", "Mute_enter_facility_scan", g_cfg.verbose_log, g_ini_path) != 0;
+    g_cfg.mute_facility_shut_down_bang = GetPrivateProfileIntA("General", "Mute_facility_shut_down_bang", g_cfg.verbose_log, g_ini_path) != 0;
+    g_cfg.mute_enter_private_room = GetPrivateProfileIntA("General", "Mute_enter_private_room", g_cfg.verbose_log, g_ini_path) != 0;
+    g_cfg.mute_open_pause_menu = GetPrivateProfileIntA("General", "Mute_open_pause_menu", g_cfg.verbose_log, g_ini_path) != 0;
+    g_cfg.mute_close_pause_menu = GetPrivateProfileIntA("General", "Mute_get_off_coffin_board", g_cfg.verbose_log, g_ini_path) != 0;
+    g_cfg.mute_terminal_selection = GetPrivateProfileIntA("General", "Mute_terminal_selection", g_cfg.verbose_log, g_ini_path) != 0;
+    g_cfg.mute_open_map = GetPrivateProfileIntA("General", "Mute_open_map", g_cfg.verbose_log, g_ini_path) != 0;
+    g_cfg.mute_flood_or_bushfire_warning_in_map = GetPrivateProfileIntA("General", "Mute_flood_or_bushfire_warning_in_map", g_cfg.verbose_log, g_ini_path) != 0;
+    g_cfg.mute_cargo_management_selection = GetPrivateProfileIntA("General", "Mute_cargo_management_selection", g_cfg.verbose_log, g_ini_path) != 0;
+    g_cfg.mute_placement_options = GetPrivateProfileIntA("General", "Mute_placement_options", g_cfg.verbose_log, g_ini_path) != 0;
+    g_cfg.mute_map_facility_hover = GetPrivateProfileIntA("General", "Mute_map_facility_hover", g_cfg.verbose_log, g_ini_path) != 0;
+    g_cfg.mute_qpid_enter_and_return_orders = GetPrivateProfileIntA("General", "Mute_qpid_enter_and_return_orders", g_cfg.verbose_log, g_ini_path) != 0;
+    g_cfg.mute_route_simulation_in_orders = GetPrivateProfileIntA("General", "Mute_route_simulation_in_orders", g_cfg.verbose_log, g_ini_path) != 0;
+    g_cfg.mute_hover_on_orders = GetPrivateProfileIntA("General", "Mute_hover_on_orders", g_cfg.verbose_log, g_ini_path) != 0;
+    g_cfg.mute_switch_map_info = GetPrivateProfileIntA("General", "Mute_switch_map_info", g_cfg.verbose_log, g_ini_path) != 0;
+    g_cfg.mute_place_marker_on_map = GetPrivateProfileIntA("General", "Mute_place_marker_on_map", g_cfg.verbose_log, g_ini_path) != 0;
+    g_cfg.mute_zoomming_in_and_out_in_map = GetPrivateProfileIntA("General", "Mute_zoomming_in_and_out_in_map", g_cfg.verbose_log, g_ini_path) != 0;
+    g_cfg.mute_pan_around_the_map = GetPrivateProfileIntA("General", "Mute_pan_around_the_map", g_cfg.verbose_log, g_ini_path) != 0;
+    g_cfg.mute_wear_clothes = GetPrivateProfileIntA("General", "Mute_wear_clothes", g_cfg.verbose_log, g_ini_path) != 0;
+    g_cfg.mute_wear_hats = GetPrivateProfileIntA("General", "Mute_wear_hats", g_cfg.verbose_log, g_ini_path) != 0;
+    g_cfg.mute_wear_glasses = GetPrivateProfileIntA("General", "Mute_wear_glasses", g_cfg.verbose_log, g_ini_path) != 0;
+    g_cfg.mute_take_off_glasses = GetPrivateProfileIntA("General", "Mute_take_off_glasses", g_cfg.verbose_log, g_ini_path) != 0;
+    g_cfg.mute_wear_BB = GetPrivateProfileIntA("General", "Mute_wear_BB", g_cfg.verbose_log, g_ini_path) != 0;
+    g_cfg.mute_wear_mask = GetPrivateProfileIntA("General", "Mute_wear_mask", g_cfg.verbose_log, g_ini_path) != 0;
+    g_cfg.mute_change_cosmetics_color = GetPrivateProfileIntA("General", "Mute_change_cosmetics_color", g_cfg.verbose_log, g_ini_path) != 0;
+    g_cfg.mute_fabricate_vehicle = GetPrivateProfileIntA("General", "Mute_fabricate_vehicle", g_cfg.verbose_log, g_ini_path) != 0;
+    g_cfg.mute_claim_material_menu = GetPrivateProfileIntA("General", "Mute_claim_material_menu", g_cfg.verbose_log, g_ini_path) != 0;
+    g_cfg.mute_notification_yellow = GetPrivateProfileIntA("General", "Mute_notification_yellow", g_cfg.verbose_log, g_ini_path) != 0;
+    g_cfg.mute_notification_white = GetPrivateProfileIntA("General", "Mute_notification_white", g_cfg.verbose_log, g_ini_path) != 0;
 
 
 
-    appendArray(k_blocked_event_ids, sizeof(k_blocked_event_ids) / sizeof(AkUniqueID));
 
     if (g_cfg.mute_bike_driving_sound)
     {
@@ -1161,6 +1150,178 @@ static void load_config(void)
     if (g_cfg.mute_get_off_coffin_board)
     {
         appendArray(mute_get_off_coffin_board, sizeof(mute_get_off_coffin_board) / sizeof(AkUniqueID));
+    }
+    if (g_cfg.mute_main_menu_button_hover)
+    {
+        appendArray(mute_main_menu_button_hover, sizeof(mute_main_menu_button_hover) / sizeof(AkUniqueID));
+    }
+    if (g_cfg.mute_setting_tab_click)
+    {
+        appendArray(mute_setting_tab_click, sizeof(mute_setting_tab_click) / sizeof(AkUniqueID));
+    }
+    if (g_cfg.mute_setting_option_previous_value_and_slider)
+    {
+        appendArray(mute_setting_option_previous_value_and_slider, sizeof(mute_setting_option_previous_value_and_slider) / sizeof(AkUniqueID));
+    }
+    if (g_cfg.mute_setting_option_next_value)
+    {
+        appendArray(mute_setting_option_next_value, sizeof(mute_setting_option_next_value) / sizeof(AkUniqueID));
+    }
+    if (g_cfg.mute_setting_menu_click)
+    {
+        appendArray(mute_setting_menu_click, sizeof(mute_setting_menu_click) / sizeof(AkUniqueID));
+    }
+    if (g_cfg.mute_setting_menu_return)
+    {
+        appendArray(mute_setting_menu_return, sizeof(mute_setting_menu_return) / sizeof(AkUniqueID));
+    }
+    if (g_cfg.mute_load_save_menu_hover)
+    {
+        appendArray(mute_load_save_menu_hover, sizeof(mute_load_save_menu_hover) / sizeof(AkUniqueID));
+    }
+    if (g_cfg.mute_load_save_menu_return)
+    {
+        appendArray(mute_load_save_menu_return, sizeof(mute_load_save_menu_return) / sizeof(AkUniqueID));
+    }
+    if (g_cfg.mute_esc_open_system_menu)
+    {
+        appendArray(mute_esc_open_system_menu, sizeof(mute_esc_open_system_menu) / sizeof(AkUniqueID));
+    }
+    if (g_cfg.mute_esc_close_system_menu)
+    {
+        appendArray(mute_esc_close_system_menu, sizeof(mute_esc_close_system_menu) / sizeof(AkUniqueID));
+    }
+    if (g_cfg.mute_setting_menu_back_to_system_menu)
+    {
+        appendArray(mute_setting_menu_back_to_system_menu, sizeof(mute_setting_menu_back_to_system_menu) / sizeof(AkUniqueID));
+    }
+    if (g_cfg.mute_use_terminal)
+    {
+        appendArray(mute_use_terminal, sizeof(mute_use_terminal) / sizeof(AkUniqueID));
+    }
+    if (g_cfg.mute_use_terminal_prompt_spin)
+    {
+        appendArray(mute_use_terminal_prompt_spin, sizeof(mute_use_terminal_prompt_spin) / sizeof(AkUniqueID));
+    }
+    if (g_cfg.mute_enter_facility_bang)
+    {
+        appendArray(mute_enter_facility_bang, sizeof(mute_enter_facility_bang) / sizeof(AkUniqueID));
+    }
+    if (g_cfg.mute_enter_facility_scan)
+    {
+        appendArray(mute_enter_facility_scan, sizeof(mute_enter_facility_scan) / sizeof(AkUniqueID));
+    }
+    if (g_cfg.mute_facility_shut_down_bang)
+    {
+        appendArray(mute_facility_shut_down_bang, sizeof(mute_facility_shut_down_bang) / sizeof(AkUniqueID));
+    }
+    if (g_cfg.mute_enter_private_room)
+    {
+        appendArray(mute_enter_private_room, sizeof(mute_enter_private_room) / sizeof(AkUniqueID));
+    }
+    if (g_cfg.mute_open_pause_menu)
+    {
+        appendArray(mute_open_pause_menu, sizeof(mute_open_pause_menu) / sizeof(AkUniqueID));
+    }
+    if (g_cfg.mute_close_pause_menu)
+    {
+        appendArray(mute_close_pause_menu, sizeof(mute_close_pause_menu) / sizeof(AkUniqueID));
+    }
+    if (g_cfg.mute_terminal_selection)
+    {
+        appendArray(mute_terminal_selection, sizeof(mute_terminal_selection) / sizeof(AkUniqueID));
+    }
+    if (g_cfg.mute_open_map)
+    {
+        appendArray(mute_open_map, sizeof(mute_open_map) / sizeof(AkUniqueID));
+    }
+    if (g_cfg.mute_flood_or_bushfire_warning_in_map)
+    {
+        appendArray(mute_flood_or_bushfire_warning_in_map, sizeof(mute_flood_or_bushfire_warning_in_map) / sizeof(AkUniqueID));
+    }
+    if (g_cfg.mute_cargo_management_selection)
+    {
+        appendArray(mute_cargo_management_selection, sizeof(mute_cargo_management_selection) / sizeof(AkUniqueID));
+    }
+    if (g_cfg.mute_placement_options)
+    {
+        appendArray(mute_placement_options, sizeof(mute_placement_options) / sizeof(AkUniqueID));
+    }
+    if (g_cfg.mute_map_facility_hover)
+    {
+        appendArray(mute_map_facility_hover, sizeof(mute_map_facility_hover) / sizeof(AkUniqueID));
+    }
+    if (g_cfg.mute_qpid_enter_and_return_orders)
+    {
+        appendArray(mute_qpid_enter_and_return_orders, sizeof(mute_qpid_enter_and_return_orders) / sizeof(AkUniqueID));
+    }
+    if (g_cfg.mute_route_simulation_in_orders)
+    {
+        appendArray(mute_route_simulation_in_orders, sizeof(mute_route_simulation_in_orders) / sizeof(AkUniqueID));
+    }
+    if (g_cfg.mute_hover_on_orders)
+    {
+        appendArray(mute_hover_on_orders, sizeof(mute_hover_on_orders) / sizeof(AkUniqueID));
+    }
+    if (g_cfg.mute_switch_map_info)
+    {
+        appendArray(mute_switch_map_info, sizeof(mute_switch_map_info) / sizeof(AkUniqueID));
+    }
+    if (g_cfg.mute_place_marker_on_map)
+    {
+        appendArray(mute_place_marker_on_map, sizeof(mute_place_marker_on_map) / sizeof(AkUniqueID));
+    }
+    if (g_cfg.mute_zoomming_in_and_out_in_map)
+    {
+        appendArray(mute_zoomming_in_and_out_in_map, sizeof(mute_zoomming_in_and_out_in_map) / sizeof(AkUniqueID));
+    }
+    if (g_cfg.mute_pan_around_the_map)
+    {
+        appendArray(mute_pan_around_the_map, sizeof(mute_pan_around_the_map) / sizeof(AkUniqueID));
+    }
+    if (g_cfg.mute_wear_clothes)
+    {
+        appendArray(mute_wear_clothes, sizeof(mute_wear_clothes) / sizeof(AkUniqueID));
+    }
+    if (g_cfg.mute_wear_hats)
+    {
+        appendArray(mute_wear_hats, sizeof(mute_wear_hats) / sizeof(AkUniqueID));
+    }
+    if (g_cfg.mute_wear_glasses)
+    {
+        appendArray(mute_wear_glasses, sizeof(mute_wear_glasses) / sizeof(AkUniqueID));
+    }
+    if (g_cfg.mute_take_off_glasses)
+    {
+        appendArray(mute_take_off_glasses, sizeof(mute_take_off_glasses) / sizeof(AkUniqueID));
+    }
+    if (g_cfg.mute_wear_BB)
+    {
+        appendArray(mute_wear_BB, sizeof(mute_wear_BB) / sizeof(AkUniqueID));
+    }
+    if (g_cfg.mute_wear_mask)
+    {
+        appendArray(mute_wear_mask, sizeof(mute_wear_mask) / sizeof(AkUniqueID));
+    }
+    if (g_cfg.mute_change_cosmetics_color)
+    {
+        appendArray(mute_change_cosmetics_color, sizeof(mute_change_cosmetics_color) / sizeof(AkUniqueID));
+    }
+    if (g_cfg.mute_fabricate_vehicle)
+    {
+        appendArray(mute_fabricate_vehicle, sizeof(mute_fabricate_vehicle) / sizeof(AkUniqueID));
+    }
+    if (g_cfg.mute_claim_material_menu)
+    {
+        appendArray(mute_claim_material_menu, sizeof(mute_claim_material_menu) / sizeof(AkUniqueID));
+    }
+    if (g_cfg.mute_notification_yellow)
+    {
+        appendArray(mute_notification_yellow, sizeof(mute_notification_yellow) / sizeof(AkUniqueID));
+    }
+    if (g_cfg.mute_notification_white)
+    {
+        appendArray(mute_notification_white, sizeof(mute_notification_white) / sizeof(AkUniqueID));
     }
 }
 
@@ -2271,7 +2432,50 @@ static DWORD WINAPI initialize_thread_proc(LPVOID parameter)
     mute_two_floating_carrier_drive_sound=%d \
     mute_floating_carrier_squeak_noise=%d \
     mute_get_on_coffin_board=%d \
-    mute_get_off_coffin_board=%d ",
+    mute_get_off_coffin_board=%d \
+    mute_main_menu_button_hover=%d \
+    mute_setting_tab_click=%d \
+    mute_setting_option_previous_value_and_slider=%d \
+    mute_setting_option_next_value=%d \
+    mute_setting_menu_click=%d \
+    mute_setting_menu_return=%d \
+    mute_load_save_menu_hover=%d \
+    mute_load_save_menu_return=%d \
+    mute_esc_open_system_menu=%d \
+    mute_esc_close_system_menu=%d \
+    mute_setting_menu_back_to_system_menu=%d \
+    mute_use_terminal=%d \
+    mute_use_terminal_prompt_spin=%d \
+    mute_enter_facility_bang=%d \
+    mute_enter_facility_scan=%d \
+    mute_facility_shut_down_bang=%d \
+    mute_enter_private_room=%d \
+    mute_open_pause_menu=%d \
+    mute_close_pause_menu=%d \
+    mute_terminal_selection=%d \
+    mute_open_map=%d \
+    mute_flood_or_bushfire_warning_in_map=%d \
+    mute_cargo_management_selection=%d \
+    mute_placement_options=%d \
+    mute_map_facility_hover=%d \
+    mute_qpid_enter_and_return_orders=%d \
+    mute_route_simulation_in_orders=%d \
+    mute_hover_on_orders=%d \
+    mute_switch_map_info=%d \
+    mute_place_marker_on_map=%d \
+    mute_zoomming_in_and_out_in_map=%d \
+    mute_pan_around_the_map=%d \
+    mute_wear_clothes=%d \
+    mute_wear_hats=%d \
+    mute_wear_glasses=%d \
+    mute_take_off_glasses=%d \
+    mute_wear_BB=%d \
+    mute_wear_mask=%d \
+    mute_change_cosmetics_color=%d \
+    mute_fabricate_vehicle=%d \
+    mute_claim_material_menu=%d \
+    mute_notification_yellow=%d \
+    mute_notification_white=%d ",
 
     g_cfg.mute_bike_driving_sound,
     g_cfg.mute_get_off_bike,
@@ -2308,7 +2512,50 @@ static DWORD WINAPI initialize_thread_proc(LPVOID parameter)
     g_cfg.mute_two_floating_carrier_drive_sound,
     g_cfg.mute_floating_carrier_squeak_noise,
     g_cfg.mute_get_on_coffin_board,
-    g_cfg.mute_get_off_coffin_board);
+    g_cfg.mute_get_off_coffin_board,
+    g_cfg.mute_main_menu_button_hover,
+    g_cfg.mute_setting_tab_click,
+    g_cfg.mute_setting_option_previous_value_and_slider,
+    g_cfg.mute_setting_option_next_value,
+    g_cfg.mute_setting_menu_click,
+    g_cfg.mute_setting_menu_return,
+    g_cfg.mute_load_save_menu_hover,
+    g_cfg.mute_load_save_menu_return,
+    g_cfg.mute_esc_open_system_menu,
+    g_cfg.mute_esc_close_system_menu,
+    g_cfg.mute_setting_menu_back_to_system_menu,
+    g_cfg.mute_use_terminal,
+    g_cfg.mute_use_terminal_prompt_spin,
+    g_cfg.mute_enter_facility_bang,
+    g_cfg.mute_enter_facility_scan,
+    g_cfg.mute_facility_shut_down_bang,
+    g_cfg.mute_enter_private_room,
+    g_cfg.mute_open_pause_menu,
+    g_cfg.mute_close_pause_menu,
+    g_cfg.mute_terminal_selection,
+    g_cfg.mute_open_map,
+    g_cfg.mute_flood_or_bushfire_warning_in_map,
+    g_cfg.mute_cargo_management_selection,
+    g_cfg.mute_placement_options,
+    g_cfg.mute_map_facility_hover,
+    g_cfg.mute_qpid_enter_and_return_orders,
+    g_cfg.mute_route_simulation_in_orders,
+    g_cfg.mute_hover_on_orders,
+    g_cfg.mute_switch_map_info,
+    g_cfg.mute_place_marker_on_map,
+    g_cfg.mute_zoomming_in_and_out_in_map,
+    g_cfg.mute_pan_around_the_map,
+    g_cfg.mute_wear_clothes,
+    g_cfg.mute_wear_hats,
+    g_cfg.mute_wear_glasses,
+    g_cfg.mute_take_off_glasses,
+    g_cfg.mute_wear_BB,
+    g_cfg.mute_wear_mask,
+    g_cfg.mute_change_cosmetics_color,
+    g_cfg.mute_fabricate_vehicle,
+    g_cfg.mute_claim_material_menu,
+    g_cfg.mute_notification_yellow,
+    g_cfg.mute_notification_white);
 
     log_line("count: %d", g_blocked_count);
 
