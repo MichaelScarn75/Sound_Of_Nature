@@ -37,6 +37,7 @@ typedef struct Config {
     BOOL mute_armor_activated_on_bike_mount_4;
     BOOL mute_armor_deactivated_on_bike_unmount_1;
     BOOL mute_armor_deactivated_on_bike_unmount_2;
+    BOOL mute_get_on_car_front_side;
     BOOL mute_get_on_armored_car_left_side;
     BOOL mute_get_on_armored_car_right_side;
     BOOL mute_get_on_non_armored_car_left_side;
@@ -75,6 +76,7 @@ typedef struct Config {
     BOOL mute_enter_facility_scan;
     BOOL mute_facility_shut_down_bang;
     BOOL mute_enter_private_room;
+    BOOL mute_rest_in_shelter;
     BOOL mute_open_pause_menu;
     BOOL mute_close_pause_menu;
     BOOL mute_terminal_selection;
@@ -101,7 +103,7 @@ typedef struct Config {
     BOOL mute_claim_material_menu;
     BOOL mute_notification_yellow;
     BOOL mute_notification_white;
-
+    BOOL mute_sam_breathing;
 } Config;
 
 typedef AkPlayingID(__cdecl *PostEventIdFn)(
@@ -239,7 +241,7 @@ static const uintptr_t k_rva_play_voice_with_sentence_randomly_impl = 0x00D8B870
 static AkUniqueID* g_blocked = NULL;
 static size_t g_blocked_count = 0;
 
-static AkUniqueID mute_bike_driving_sound[] = {560195744u};
+static const AkUniqueID mute_bike_driving_sound[] = {560195744u};
 static const AkUniqueID mute_get_off_bike[] = {1459707057u};
 static const AkUniqueID mute_bike_retracts_after_get_off[] = {2927771336u};
 static const AkUniqueID mute_get_on_bike[] = {1926977457u};
@@ -334,6 +336,7 @@ static const AkUniqueID mute_armor_activated_on_bike_mount_3[] = {4094584434u};
 static const AkUniqueID mute_armor_activated_on_bike_mount_4[] = {1520456362u};
 static const AkUniqueID mute_armor_deactivated_on_bike_unmount_1[] = {591947656u};
 static const AkUniqueID mute_armor_deactivated_on_bike_unmount_2[] = {1494342936u};
+static const AkUniqueID mute_get_on_car_front_side[] = {2447662917u};
 static const AkUniqueID mute_get_on_armored_car_left_side[] = {387213036u};
 static const AkUniqueID mute_get_on_armored_car_right_side[] = {387213042u};
 static const AkUniqueID mute_get_on_non_armored_car_left_side[] = {2447662927u};
@@ -377,7 +380,6 @@ static const AkUniqueID mute_skeleton[] =
     2260357319u,
     4208302398u,
     1808469513u,
-    4251155871u,
     4223857948u
 };
 static const AkUniqueID mute_loud_HEADOUT[] = 
@@ -469,7 +471,6 @@ static const AkUniqueID mute_setting_menu_back_to_system_menu[] =
 };
 static const AkUniqueID mute_use_terminal[] =
 {
-    739855082u,
     2707867662u
 };
 static const AkUniqueID mute_use_terminal_prompt_spin[] =
@@ -493,7 +494,6 @@ static const AkUniqueID mute_enter_facility_scan[] =
     2208794130u,
     1111526780u,
     2661789847u,
-    4251155871u,
     1926586171u,
     1904916743u,
     629566067u
@@ -505,6 +505,10 @@ static const AkUniqueID mute_facility_shut_down_bang[] =
 static const AkUniqueID mute_enter_private_room[] =
 {
     180688690u
+};
+static const AkUniqueID mute_rest_in_shelter[] =
+{
+    739855082u 
 };
 static const AkUniqueID mute_open_pause_menu[] =
 {
@@ -642,6 +646,10 @@ static const AkUniqueID mute_notification_white[] =
 {
     3413927717u
 };
+static const AkUniqueID mute_sam_breathing[] =
+{
+    4251155871u 
+};
 
 
 /*
@@ -695,6 +703,7 @@ static const char *k_default_ini =
 "Mute_armor_activated_on_bike_mount_4=1\n"
 "Mute_armor_deactivated_on_bike_unmount_1=1\n"
 "Mute_armor_deactivated_on_bike_unmount_2=1\n"
+"Mute_get_on_car_front_side=1\n"
 "Mute_get_on_armored_car_left_side=1\n"
 "Mute_get_on_armored_car_right_side=1\n"
 "Mute_get_on_non_armored_car_left_side=1\n"
@@ -733,6 +742,7 @@ static const char *k_default_ini =
 "Mute_enter_facility_scan=1\n"
 "Mute_facility_shut_down_bang=1\n"
 "Mute_enter_private_room=1\n"
+"Mute_rest_in_shelter=1\n"
 "Mute_open_pause_menu=1\n"
 "Mute_close_pause_menu=1\n"
 "Mute_terminal_selection=1\n"
@@ -759,6 +769,7 @@ static const char *k_default_ini =
 "Mute_claim_material_menu=1\n"
 "Mute_notification_yellow=1\n"
 "Mute_notification_white=1\n"
+"Mute_sam_breathing=1\n"
 ;
 
 static uint32_t g_seen_trace_hashes[4096];
@@ -851,6 +862,7 @@ static void load_config(void)
     g_cfg.mute_armor_activated_on_bike_mount_4 = TRUE;
     g_cfg.mute_armor_deactivated_on_bike_unmount_1 = TRUE;
     g_cfg.mute_armor_deactivated_on_bike_unmount_2 = TRUE;
+    g_cfg.mute_get_on_car_front_side = TRUE;
     g_cfg.mute_get_on_armored_car_left_side = TRUE;
     g_cfg.mute_get_on_armored_car_right_side = TRUE;
     g_cfg.mute_get_on_non_armored_car_left_side = TRUE;
@@ -889,6 +901,7 @@ static void load_config(void)
     g_cfg.mute_enter_facility_scan = TRUE;
     g_cfg.mute_facility_shut_down_bang = TRUE;
     g_cfg.mute_enter_private_room = TRUE;
+    g_cfg.mute_rest_in_shelter = TRUE;
     g_cfg.mute_open_pause_menu = TRUE;
     g_cfg.mute_close_pause_menu = TRUE;
     g_cfg.mute_terminal_selection = TRUE;
@@ -915,6 +928,7 @@ static void load_config(void)
     g_cfg.mute_claim_material_menu = TRUE;
     g_cfg.mute_notification_yellow = TRUE;
     g_cfg.mute_notification_white = TRUE;
+    g_cfg.mute_sam_breathing = TRUE;
 
     ensure_default_ini();
 
@@ -939,6 +953,7 @@ static void load_config(void)
     g_cfg.mute_armor_activated_on_bike_mount_4 = GetPrivateProfileIntA("General", "Mute_armor_activated_on_bike_mount_4", g_cfg.verbose_log, g_ini_path) != 0;
     g_cfg.mute_armor_deactivated_on_bike_unmount_1 = GetPrivateProfileIntA("General", "Mute_armor_deactivated_on_bike_unmount_1", g_cfg.verbose_log, g_ini_path) != 0;
     g_cfg.mute_armor_deactivated_on_bike_unmount_2 = GetPrivateProfileIntA("General", "Mute_armor_deactivated_on_bike_unmount_2", g_cfg.verbose_log, g_ini_path) != 0;
+    g_cfg.mute_get_on_car_front_side = GetPrivateProfileIntA("General", "Mute_get_on_car_front_side", g_cfg.verbose_log, g_ini_path) != 0;
     g_cfg.mute_get_on_armored_car_left_side = GetPrivateProfileIntA("General", "Mute_get_on_armored_car_left_side", g_cfg.verbose_log, g_ini_path) != 0;
     g_cfg.mute_get_on_armored_car_right_side = GetPrivateProfileIntA("General", "Mute_get_on_armored_car_right_side", g_cfg.verbose_log, g_ini_path) != 0;
     g_cfg.mute_get_on_non_armored_car_left_side = GetPrivateProfileIntA("General", "Mute_get_on_non_armored_car_left_side", g_cfg.verbose_log, g_ini_path) != 0;
@@ -977,6 +992,7 @@ static void load_config(void)
     g_cfg.mute_enter_facility_scan = GetPrivateProfileIntA("General", "Mute_enter_facility_scan", g_cfg.verbose_log, g_ini_path) != 0;
     g_cfg.mute_facility_shut_down_bang = GetPrivateProfileIntA("General", "Mute_facility_shut_down_bang", g_cfg.verbose_log, g_ini_path) != 0;
     g_cfg.mute_enter_private_room = GetPrivateProfileIntA("General", "Mute_enter_private_room", g_cfg.verbose_log, g_ini_path) != 0;
+    g_cfg.mute_rest_in_shelter = GetPrivateProfileIntA("General", "Mute_rest_in_shelter", g_cfg.verbose_log, g_ini_path) != 0;
     g_cfg.mute_open_pause_menu = GetPrivateProfileIntA("General", "Mute_open_pause_menu", g_cfg.verbose_log, g_ini_path) != 0;
     g_cfg.mute_close_pause_menu = GetPrivateProfileIntA("General", "Mute_get_off_coffin_board", g_cfg.verbose_log, g_ini_path) != 0;
     g_cfg.mute_terminal_selection = GetPrivateProfileIntA("General", "Mute_terminal_selection", g_cfg.verbose_log, g_ini_path) != 0;
@@ -1003,6 +1019,7 @@ static void load_config(void)
     g_cfg.mute_claim_material_menu = GetPrivateProfileIntA("General", "Mute_claim_material_menu", g_cfg.verbose_log, g_ini_path) != 0;
     g_cfg.mute_notification_yellow = GetPrivateProfileIntA("General", "Mute_notification_yellow", g_cfg.verbose_log, g_ini_path) != 0;
     g_cfg.mute_notification_white = GetPrivateProfileIntA("General", "Mute_notification_white", g_cfg.verbose_log, g_ini_path) != 0;
+    g_cfg.mute_sam_breathing = GetPrivateProfileIntA("General", "Mute_sam_breathing", g_cfg.verbose_log, g_ini_path) != 0;
 
 
 
@@ -1066,6 +1083,10 @@ static void load_config(void)
     if (g_cfg.mute_armor_deactivated_on_bike_unmount_2)
     {
         appendArray(mute_armor_deactivated_on_bike_unmount_2, sizeof(mute_armor_deactivated_on_bike_unmount_2) / sizeof(AkUniqueID));
+    }
+    if (g_cfg.mute_get_on_car_front_side)
+    {
+        appendArray(mute_get_on_car_front_side, sizeof(mute_get_on_car_front_side) / sizeof(AkUniqueID));
     }
     if (g_cfg.mute_get_on_armored_car_left_side)
     {
@@ -1219,6 +1240,10 @@ static void load_config(void)
     {
         appendArray(mute_enter_private_room, sizeof(mute_enter_private_room) / sizeof(AkUniqueID));
     }
+    if (g_cfg.mute_rest_in_shelter)
+    {
+        appendArray(mute_rest_in_shelter, sizeof(mute_rest_in_shelter) / sizeof(AkUniqueID));
+    }
     if (g_cfg.mute_open_pause_menu)
     {
         appendArray(mute_open_pause_menu, sizeof(mute_open_pause_menu) / sizeof(AkUniqueID));
@@ -1322,6 +1347,10 @@ static void load_config(void)
     if (g_cfg.mute_notification_white)
     {
         appendArray(mute_notification_white, sizeof(mute_notification_white) / sizeof(AkUniqueID));
+    }
+    if (g_cfg.mute_sam_breathing)
+    {
+        appendArray(mute_sam_breathing, sizeof(mute_sam_breathing) / sizeof(AkUniqueID));
     }
 }
 
@@ -2412,6 +2441,7 @@ static DWORD WINAPI initialize_thread_proc(LPVOID parameter)
     mute_armor_activated_on_bike_mount_4=%d \
     mute_armor_deactivated_on_bike_unmount_1=%d \
     mute_armor_deactivated_on_bike_unmount_2=%d \
+    mute_get_on_car_front_side=%d \
     mute_get_on_armored_car_left_side=%d \
     mute_get_on_armored_car_right_side=%d \
     mute_get_on_non_armored_car_left_side=%d \
@@ -2450,6 +2480,7 @@ static DWORD WINAPI initialize_thread_proc(LPVOID parameter)
     mute_enter_facility_scan=%d \
     mute_facility_shut_down_bang=%d \
     mute_enter_private_room=%d \
+    mute_rest_in_shelter=%d \
     mute_open_pause_menu=%d \
     mute_close_pause_menu=%d \
     mute_terminal_selection=%d \
@@ -2475,7 +2506,8 @@ static DWORD WINAPI initialize_thread_proc(LPVOID parameter)
     mute_fabricate_vehicle=%d \
     mute_claim_material_menu=%d \
     mute_notification_yellow=%d \
-    mute_notification_white=%d ",
+    mute_notification_white=%d \
+    mute_sam_breathing=%d ",
 
     g_cfg.mute_bike_driving_sound,
     g_cfg.mute_get_off_bike,
@@ -2492,6 +2524,7 @@ static DWORD WINAPI initialize_thread_proc(LPVOID parameter)
     g_cfg.mute_armor_activated_on_bike_mount_4,
     g_cfg.mute_armor_deactivated_on_bike_unmount_1,
     g_cfg.mute_armor_deactivated_on_bike_unmount_2,
+    g_cfg.mute_get_on_car_front_side,
     g_cfg.mute_get_on_armored_car_left_side,
     g_cfg.mute_get_on_armored_car_right_side,
     g_cfg.mute_get_on_non_armored_car_left_side,
@@ -2530,6 +2563,7 @@ static DWORD WINAPI initialize_thread_proc(LPVOID parameter)
     g_cfg.mute_enter_facility_scan,
     g_cfg.mute_facility_shut_down_bang,
     g_cfg.mute_enter_private_room,
+    g_cfg.mute_rest_in_shelter,
     g_cfg.mute_open_pause_menu,
     g_cfg.mute_close_pause_menu,
     g_cfg.mute_terminal_selection,
@@ -2555,7 +2589,8 @@ static DWORD WINAPI initialize_thread_proc(LPVOID parameter)
     g_cfg.mute_fabricate_vehicle,
     g_cfg.mute_claim_material_menu,
     g_cfg.mute_notification_yellow,
-    g_cfg.mute_notification_white);
+    g_cfg.mute_notification_white,
+    g_cfg.mute_sam_breathing);
 
     log_line("count: %d", g_blocked_count);
 

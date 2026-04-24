@@ -149,7 +149,6 @@ Tiny Note
 2260357319u bokka skeleton sound 1<br />
 4208302398u bokka skeleton sound 2<br />
 1808469513u battle skeleton sound 1<br />
-4251155871u battle skeleton sound 2<br />
 4223857948u battle skeleton sound 3<br />
 2483290443u loud HEADOUT sound 1<br />
 1268992403u loud HEADOUT sound 2<br />
@@ -252,8 +251,7 @@ Tiny Note
 865275807u esc open system menu<br />
 3569950978u esc close system menu<br />
 991791339u setting menu back to system menu<br />
-739855082u use terminal 1<br />
-2707867662u use terminal 2<br />
+2707867662u use terminal<br />
 2715474440u use terminal prompt spin 1<br />
 2715474442u use terminal prompt spin 2<br />
 2715474443u use terminal prompt spin 3<br />
@@ -267,12 +265,12 @@ Tiny Note
 2208794130u enter facility scan 2<br />
 1111526780u enter facility scan 3<br />
 2661789847u enter facility scan 4<br />
-4251155871u enter facility scan 5<br />
 1926586171u enter facility scan 6<br />
 1904916743u enter facility scan 7<br />
 629566067u enter facility scan 8<br />
 167690906u facility shut down bang<br />
 180688690u enter private room<br />
+739855082u rest in shelter<br />
 1272080071u open pause menu<br />
 1555678938u close pause menu<br />
 3510403665u terminal selection<br />
@@ -331,3 +329,4 @@ Tiny Note
 990015723u claim material menu right click remove material<br />
 466973018u notification yellow<br />
 3413927717u notification white<br />
+4251155871u sam breathing<br />
